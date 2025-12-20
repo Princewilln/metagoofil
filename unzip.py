@@ -47,10 +47,10 @@ class unzip:
         for i, name in enumerate(zf.namelist()):
 
             if self.verbose == True:
-                print "Extracting %s" % name
+                print("Extracting %s" % name)
             elif perc > 0 and (i % perc) == 0 and i > 0:
                 complete = int (i / perc) * percent
-                #print "%s%% complete" % complete
+                #print("%s%% complete" % complete)
 
             if not name.endswith('/'):
                 outfile = open(os.path.join(dir, name), 'wb')
@@ -92,7 +92,7 @@ class unzip:
         return dirs
 
 def usage():
-    print """usage: unzip.py -z <zipfile> -o <targetdir>
+    print("""usage: unzip.py -z <zipfile> -o <targetdir>
     <zipfile> is the source zipfile to extract
     <targetdir> is the target destination
 
@@ -105,7 +105,7 @@ def usage():
     --verbose
     --percent=10
     --zipfile=<zipfile>
-    --outdir=<targetdir>"""
+    --outdir=<targetdir>""")
     
 
 def main():
@@ -143,4 +143,5 @@ def main():
             
     unzipper.extract(zipsource, zipdest)
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': 
+    main()

@@ -95,7 +95,7 @@ max-height: 300px;
 		graph.showValues = 1
         	page.body(graph.create())
 	except:
-		print "graph"
+		print("graph")
 	try:
 		page.h3("User names found:")
 		page.ul( class_="userslist")
@@ -103,13 +103,13 @@ max-height: 300px;
 		page.ul.close( )
 		page.h3("Software versions found:")
 	except:
-		print "user"
+		print("user")
         try:
 		page.ul( class_="softlist")
 		page.li(self.softs, class_="softitem")
 		page.ul.close( )
 	except:
-		print "email"
+		print("email")
 	page.h3("E-mails found:")
         if self.emails!=[]:
             page.ul( class_="emailslist")
@@ -148,7 +148,7 @@ max-height: 300px;
             try:
                 file.write(x)
             except:
-                #print "Exception" +  x # send to logs
+                #print("Exception" +  x) # send to logs
                 pass
-        file.close
+        file.close()
         return "ok"

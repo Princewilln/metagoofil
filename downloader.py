@@ -1,4 +1,6 @@
-import urllib, os, sys
+import urllib.request
+import os
+import sys
 
 class downloader():
     def __init__(self, url, dir):
@@ -16,9 +18,9 @@ class downloader():
             pass
         else:
             try:
-                urllib.urlretrieve(self.url, self.dir + "/" + self.filename)
+                urllib.request.urlretrieve(self.url, self.dir + "/" + self.filename)
             except:
-                print "\t [x] Error downloading " + self.url
+                print("\t [x] Error downloading " + self.url)
                 self.filename = ""
 
     def name(self):

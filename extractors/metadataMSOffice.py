@@ -25,11 +25,11 @@ class metaMs2k:
 			return "error"
 		try:
 			metadata = extractMetadata(parser)
-		except HachoirError, err:
-			print "Metadata extraction error: %s" % unicode(err)
+		except HachoirError as err:
+			print("Metadata extraction error: %s" % str(err))
 			metadata = None
 		if not metadata:
-			print "Unable to extract metadata on file: " + self.filename
+			print("Unable to extract metadata on file: " + self.filename)
 		else:
 			text = metadata.exportPlaintext()
 			charset = getTerminalCharset()

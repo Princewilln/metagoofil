@@ -2,9 +2,7 @@
 import sys
 import re
 try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 from cmapdb import CMapDB, CMap
 from psparser import PSException, PSTypeError, PSEOF
 from psparser import PSKeyword, literal_name, keyword_name

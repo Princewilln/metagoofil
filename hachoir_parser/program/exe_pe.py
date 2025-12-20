@@ -70,8 +70,8 @@ class SectionHeader(FieldSet):
             name = str(self["name"].value.strip("."))
             if name:
                 return "section_%s" % name
-        except HACHOIR_ERRORS, err:
-            self.warning(unicode(err))
+        except HACHOIR_ERRORS as err:
+            self.warning(str(err))
         return "section[]"
 
 class DataDirectory(FieldSet):

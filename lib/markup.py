@@ -21,7 +21,7 @@ ideas or questions to nogradi at gmail dot com.
 Installation: drop markup.py somewhere into your Python path.
 """ % ( __version__, __date__ )
 
-import string
+import sys
 
 class element:
     """This class handles the addition of a new element."""

@@ -7,9 +7,7 @@ try:
 except ImportError:
     import md5
 try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 from psparser import PSStackParser
 from psparser import PSSyntaxError, PSEOF
 from psparser import literal_name

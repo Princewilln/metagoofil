@@ -101,15 +101,15 @@ class QueryParser(object):
             try:
                 parser_obj = parser(stream, validate=self.validate)
                 if self.parser_args:
-                    for key, value in self.parser_args.iteritems():
+                    for key, value in self.parser_args.items():
                         setattr(parser_obj, key, value)
                 return parser_obj
-            except ValidateError, err:
-                res = unicode(err)
+            except ValidateError as err:
+                res = str(err)
                 if fallback and self.fallback:
                     fb = parser
-            except HACHOIR_ERRORS, err:
-                res = unicode(err)
+            except HACHOIR_ERRORS as err:
+                res = str(err)
             if warn:
                 if parser == self.other:
                     warn = info

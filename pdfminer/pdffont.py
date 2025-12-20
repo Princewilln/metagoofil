@@ -2,9 +2,7 @@
 import sys
 import struct
 try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 from cmapdb import CMapDB, CMapParser, FileUnicodeMap, CMap
 from encodingdb import EncodingDB, name2unicode
 from psparser import PSStackParser

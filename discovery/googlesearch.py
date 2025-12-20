@@ -1,5 +1,5 @@
-import string
-import httplib, sys
+import http.client
+import sys
 import myparser
 import re
 import time
@@ -18,14 +18,11 @@ class search_google:
 		self.counter=start
 		
 	def do_search_files(self):
-		h = httplib.HTTP(self.server)
-		h.putrequest('GET', "/search?num="+self.quantity+"&start=" + str(self.counter) + "&hl=en&meta=&q=filetype:"+self.filetype+"%20site:" + self.word)
-		h.putheader('Host', self.hostname)
-		h.putheader('User-agent', self.userAgent)	
-		h.endheaders()
-		returncode, returnmsg, headers = h.getreply()
-		self.results = h.getfile().read()
-		self.totalresults+= self.results
+		h = http.client.HTTPConnection(self.server)
+		h.request('GET', "/search?num="+self.quantity+"&start=" + str(self.counter) + "&hl=en&meta=&q=filetype:"+self.filetype+"%20site:" + self.word, headers={'Host': self.hostname, 'User-agent': self.userAgent})
+		response = h.getresponse()
+		self.results = response.read()
+		self.totalresults += self.results
 
 	def get_emails(self):
 		rawres=myparser.parser(self.totalresults,self.word)
@@ -44,5 +41,5 @@ class search_google:
 			self.do_search_files()
 			time.sleep(1)
 			self.counter+=100
-			print "\tSearching "+ str(self.counter) + " results..."
+			print("\tSearching "+ str(self.counter) + " results...")
 

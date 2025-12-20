@@ -1,4 +1,3 @@
-import string
 import re
 
 class parser:
@@ -20,7 +19,7 @@ class parser:
 
 
 		for e in ('>',':','=', '<', '/', '\\',';','&','%3A','%3D','%3C'):
-			self.results = string.replace(self.results, e, ' ')
+			self.results = self.results.replace(e, ' ')
 			
 	def urlClean(self):
 		self.results = re.sub('<em>', '', self.results)
@@ -28,7 +27,7 @@ class parser:
 		self.results = re.sub('%2f', ' ', self.results)
 		self.results = re.sub('%3a', ' ', self.results)
 		for e in ('<','>',':','=',';','&','%3A','%3D','%3C'):
-			self.results = string.replace(self.results, e, ' ')
+			self.results = self.results.replace(e, ' ')
 		
 	def emails(self):
 		self.genericClean()
@@ -55,11 +54,11 @@ class parser:
 		self.temp = reg_people.findall(self.results)
 		resul = []
 		for x in self.temp:
-				y = string.replace(x, '  LinkedIn', '')
-				y = string.replace(y, ' profiles ', '')
-				y = string.replace(y, 'LinkedIn', '')
-				y = string.replace(y, '"', '')
-				y = string.replace(y, '>', '')
+				y = x.replace('  LinkedIn', '')
+				y = y.replace(' profiles ', '')
+				y = y.replace('LinkedIn', '')
+				y = y.replace('"', '')
+				y = y.replace('>', '')
 				if y !=" ":
 					resul.append(y)
 		return resul
@@ -69,9 +68,9 @@ class parser:
 		self.temp = reg_people.findall(self.results)
 		resul = []
 		for x in self.temp:
-				y = string.replace(x, ' <em>Google Profile</em>', '')
-				y = string.replace(y, '-', '')
-				y = string.replace(y, '">', '')
+				y = x.replace(' <em>Google Profile</em>', '')
+				y = y.replace('-', '')
+				y = y.replace('">', '')
 				if y !=" ":
 					resul.append(y)
 		return resul

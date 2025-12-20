@@ -13,13 +13,11 @@ class processor():
 
 		def print_all(self):
 			for x in self.list:
- 				print x[0]
- 				if x[1] != []:
-					print x[1]
- 				if x[2] != []:
-					print x[2]
-  
-		def sort_users(self):
+ 			print(x[0])
+ 			if x[1] != []:
+				print(x[1])
+ 			if x[2] != []:
+				print(x[2])
 			for x in self.list:
  				if x[1]!=[]: 
  					for y in x[1]:
@@ -43,7 +41,7 @@ class processor():
 						else:
 							try:
 								self.unique_soft.append(y.lstrip())
-							except Exception, e:
+							except Exception as e:
 								pass
 				else:
 					pass

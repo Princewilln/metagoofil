@@ -51,12 +51,12 @@ class metapdf:
 			os.remove('temppdf.txt')
 			self.text=test
 			return "ok"
-		except Exception,e:
+		except Exception as e:
 			return e
 
 	def getData(self):
 		doc = PDFDocument()
-		fp = file(self.fname, 'rb')
+		fp = open(self.fname, 'rb')
 		parser = PDFParser(fp)
 		try:
 			parser.set_document(doc)
@@ -83,9 +83,9 @@ class metapdf:
 				return "Empty metadata"
 			else:
 				return "ok"
-		except Exception,e:
+		except Exception as e:
 			return e 
-			print "\t [x] Error in PDF extractor, Trailer Info"
+			print("\t [x] Error in PDF extractor, Trailer Info")
 
 	def getEmails(self):
 		em=myparser.parser(self.text)
@@ -96,14 +96,14 @@ class metapdf:
 		return em.hostnames()
 		
 	def getUsers(self):
-		if self.metadata.has_key('Author'):
+		if 'Author' in self.metadata:
 			self.users.append(self.metadata['Author'])
 		return self.users	
 	def getCompany(self):
 		try:
 			self.users.append(self.metadata['Company'])
 		except:
-			print "\t [x] Error in PDF metadata Company"	
+			print("\t [x] Error in PDF metadata Company")	
 		return self.company
 
 
@@ -111,11 +111,11 @@ class metapdf:
 		try:
 			self.software.append(self.metadata['Producer'])
 		except:	
-			print "\t [x] Error in PDF metadata Software"
+			print("\t [x] Error in PDF metadata Software")
 		try:
 			self.software.append(self.metadata['Creator'])
 		except:
-			print "\t [x] Error in PDF metadata Creator"
+			print("\t [x] Error in PDF metadata Creator")
 		return self.software
 
 	def getPaths(self):
