@@ -552,8 +552,8 @@ class LTLayoutContainer(LTContainer):
             minpair = None
             plane = Plane(boxes)
             boxes = csort(boxes, key=lambda obj: obj.width*obj.height)
-            for i in xrange(len(boxes)):
-                for j in xrange(i+1, len(boxes)):
+            for i in range(len(boxes)):
+                for j in range(i+1, len(boxes)):
                     (obj1, obj2) = (boxes[i], boxes[j])
                     b = (min(obj1.x0,obj2.x0), min(obj1.y0,obj2.y0),
                          max(obj1.x1,obj2.x1), max(obj1.y1,obj2.y1))

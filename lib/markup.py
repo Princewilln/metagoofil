@@ -366,7 +366,7 @@ def _argsdicts( args, mydict ):
 
     maxlength = max( map( len, [ args ] + myvalues ) )
 
-    for i in xrange( maxlength ):
+    for i in range( maxlength ):
         thisdict = { }
         for key, value in zip( mykeys, myvalues ):
             try:

@@ -199,7 +199,7 @@ class ExeFile(HachoirParser, RootSeekableFieldSet):
     def createContentSize(self):
         if self.isPE():
             size = 0
-            for index in xrange(self["pe_header/nb_section"].value):
+            for index in range(self["pe_header/nb_section"].value):
                 section = self["section_hdr[%u]" % index]
                 section_size = section["phys_size"].value
                 if not section_size:

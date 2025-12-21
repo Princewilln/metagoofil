@@ -81,7 +81,7 @@ class parser:
 	
 	def hostnames(self):
 		self.genericClean()
-		reg_hosts = re.compile('[a-zA-Z0-9.-]*\.'+ self.word)
+		reg_hosts = re.compile(r'[a-zA-Z0-9.-]*\.'+ self.word)
 		self.temp = reg_hosts.findall(self.results)
 		hosts=self.unique()
 		return hosts

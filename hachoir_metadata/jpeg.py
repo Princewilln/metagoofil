@@ -120,7 +120,7 @@ class JpegMetadata(RootMetadata):
         sumcoeff = 0
         for qt in qtlist:
            coeff = qt.array("coeff")
-           for index in xrange(64):
+           for index in range(64):
                 sumcoeff += coeff[index].value
 
         # Choose the right quality table and compute hash value
@@ -138,7 +138,7 @@ class JpegMetadata(RootMetadata):
             return
 
         # Find the JPEG quality
-        for index in xrange(100):
+        for index in range(100):
             if (hashval >= hashtable[index]) or (sumcoeff >= sumtable[index]):
                 quality = "%s%%" % (index + 1)
                 if (hashval > hashtable[index]) or (sumcoeff > sumtable[index]):

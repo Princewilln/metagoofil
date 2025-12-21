@@ -168,7 +168,7 @@ class OLE2_Metadata(RootMetadata):
     def useTable(self,table):
         if 'SttbSavedBy' in table:
             arr = list(table['SttbSavedBy'].array('string'))
-            for i in xrange(0, len(arr),2):
+            for i in range(0, len(arr),2):
                 self.revision_history = "Revision #%d: Author '%s', file '%s'"%(i//2, arr[i].value    , arr[i+1].value)
 
     @fault_tolerant

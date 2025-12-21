@@ -237,7 +237,7 @@ class PDFStream(PDFObject):
                         raise PDFNotImplementedError('Unsupported predictor: %r' % pred)
                     buf = ''
                     ent0 = '\x00' * columns
-                    for i in xrange(0, len(data), columns+1):
+                    for i in range(0, len(data), columns+1):
                         pred = data[i]
                         ent1 = data[i+1:i+1+columns]
                         if pred == '\x02':

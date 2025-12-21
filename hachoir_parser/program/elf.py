@@ -315,7 +315,7 @@ class ElfFile(HachoirParser, RootSeekableFieldSet):
         yield ElfHeader(self, "header", "Header")
         self.is64bit = (self["header/class"].value == 2)
 
-        for index in xrange(self["header/phnum"].value):
+        for index in range(self["header/phnum"].value):
             if self.is64bit:
                 yield ProgramHeader64(self, "prg_header[]")
             else:

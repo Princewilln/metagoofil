@@ -52,7 +52,7 @@ class BitrateMutualExclusion(FieldSet):
     def createFields(self):
         yield Enum(GUID(self, "exclusion_type"), self.mutex_name)
         yield UInt16(self, "nb_stream")
-        for index in xrange(self["nb_stream"].value):
+        for index in range(self["nb_stream"].value):
             yield UInt16(self, "stream[]")
 
 class VideoHeader(FieldSet):
@@ -108,14 +108,14 @@ class Header(FieldSet):
     def createFields(self):
         yield UInt32(self, "obj_count")
         yield PaddingBytes(self, "reserved[]", 2)
-        for index in xrange(self["obj_count"].value):
+        for index in range(self["obj_count"].value):
             yield Object(self, "object[]")
 
 class Metadata(FieldSet):
     guid = "75B22633-668E-11CF-A6D9-00AA0062CE6C"
     names = ("title", "author", "copyright", "xxx", "yyy")
     def createFields(self):
-        for index in xrange(5):
+        for index in range(5):
             yield UInt16(self, "size[]")
         for name, size in izip(self.names, self.array("size")):
             if size.value:
@@ -154,7 +154,7 @@ class ExtendedContentDescription(FieldSet):
     guid = "D2D0A440-E307-11D2-97F0-00A0C95EA850"
     def createFields(self):
         yield UInt16(self, "count")
-        for index in xrange(self["count"].value):
+        for index in range(self["count"].value):
             yield Descriptor(self, "descriptor[]")
 
 class Codec(FieldSet):
@@ -183,7 +183,7 @@ class CodecList(FieldSet):
     def createFields(self):
         yield GUID(self, "reserved[]")
         yield UInt32(self, "count")
-        for index in xrange(self["count"].value):
+        for index in range(self["count"].value):
             yield Codec(self, "codec[]")
 
 class SimpleIndexEntry(FieldSet):
@@ -202,7 +202,7 @@ class SimpleIndex(FieldSet):
         yield TimedeltaWin64(self, "entry_interval")
         yield UInt32(self, "max_pckt_count")
         yield UInt32(self, "entry_count")
-        for index in xrange(self["entry_count"].value):
+        for index in range(self["entry_count"].value):
             yield SimpleIndexEntry(self, "entry[]")
 
 class BitRate(FieldSet):
@@ -219,7 +219,7 @@ class BitRateList(FieldSet):
 
     def createFields(self):
         yield UInt16(self, "count")
-        for index in xrange(self["count"].value):
+        for index in range(self["count"].value):
             yield BitRate(self, "bit_rate[]")
 
 class Data(FieldSet):

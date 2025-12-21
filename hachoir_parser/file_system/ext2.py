@@ -109,9 +109,9 @@ class Inode(FieldSet):
             ("group_read", "group_write", "group_exec"),
             ("other_read", "other_write", "other_exec"))
         letters = "rwx"
-        mode = [ "-"  for index in xrange(10) ]
+        mode = [ "-"  for index in range(10) ]
         index = 1
-        for loop in xrange(3):
+        for loop in range(3):
             for name, letter in izip(names[loop], letters):
                 if self[name].value:
                     mode[index] = letter
@@ -148,7 +148,7 @@ class Inode(FieldSet):
         yield UInt32(self, "blocks", "Number of blocks")
         yield UInt32(self, "flags", "Flags")
         yield NullBytes(self, "reserved[]", 4, "Reserved")
-        for index in xrange(15):
+        for index in range(15):
             yield UInt32(self, "block[]")
         yield UInt32(self, "version", "Version")
         yield UInt32(self, "file_acl", "File ACL")
@@ -180,7 +180,7 @@ class Bitmap(FieldSet):
         self.start = 1+start
 
     def createFields(self):
-        for index in xrange(self._size):
+        for index in range(self._size):
             yield Bit(self, "item[]", "Item %s" % (self.start+index))
 
 BlockBitmap = Bitmap

@@ -81,7 +81,7 @@ SOUND_CODEC = {
 class SoundEnvelope(FieldSet):
     def createFields(self):
         yield UInt8(self, "count")
-        for index in xrange(self["count"].value):
+        for index in range(self["count"].value):
             yield UInt32(self, "mark44[]")
             yield UInt16(self, "level0[]")
             yield UInt16(self, "level1[]")

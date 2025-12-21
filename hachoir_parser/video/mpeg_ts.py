@@ -78,7 +78,7 @@ class MPEG_TS(Parser):
         sync = self.stream.searchBytes("\x47", 0, 204*8)
         if sync is None:
             return "Unable to find synchronization byte"
-        for index in xrange(5):
+        for index in range(5):
             try:
                 packet = self["packet[%u]" % index]
             except (ParserError, MissingField):
