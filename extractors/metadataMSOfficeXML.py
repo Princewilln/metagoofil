@@ -65,17 +65,17 @@ class metaInfoMS:
 		self.thumbnailPath =""	
 		rnd  = str(random.randrange(0, 1001, 3))
 		zip = zipfile.ZipFile(filepath, 'r')
-		file('app'+rnd+'.xml', 'w').write(zip.read('docProps/app.xml'))
-		file('core'+rnd+'.xml', 'w').write(zip.read('docProps/core.xml'))
-		file('docu'+rnd+'.xml', 'w').write(zip.read('word/document.xml'))
+		open('app'+rnd+'.xml', 'w').write(zip.read('docProps/app.xml'))
+		open('core'+rnd+'.xml', 'w').write(zip.read('docProps/core.xml'))
+		open('docu'+rnd+'.xml', 'w').write(zip.read('word/document.xml'))
 		try:
-			file('comments'+rnd+'.xml', 'w').write(zip.read('word/comments.xml'))
+			open('comments'+rnd+'.xml', 'w').write(zip.read('word/comments.xml'))
 			self.comments="ok"
 		except:
 			self.comments="error"
 		thumbnailPath = ""
 		#try:
-			#file('thumbnail'+rnd+'.jpeg', 'w').write(zip.read('docProps/thumbnail.jpeg'))
+			#open('thumbnail'+rnd+'.jpeg', 'w').write(zip.read('docProps/thumbnail.jpeg'))
 		 	#thumbnailPath = 'thumbnail'+rnd+'.jpeg'
 		#except:
 		#	pass
@@ -114,7 +114,7 @@ class metaInfoMS:
 		#self.toString()
 		
 	def toString(self):
-print("--- Metadata app ---")
+		print("--- Metadata app ---")
 		print(" template: " + str(self.template))
 		print(" totalTime: " + str(self.totalTime))
 		print(" pages: "+ str(self.pages))

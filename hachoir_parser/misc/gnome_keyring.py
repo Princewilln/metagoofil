@@ -85,7 +85,7 @@ class Attribute(FieldSet):
     def createDescription(self):
         return 'Attribute "%s"' % self["name"].value
 
-class ACL(FieldSet):
+class AC(FieldSet):
     def createFields(self):
         yield UInt32(self, "types_allowed")
         yield KeyringString(self, "display_name")
@@ -98,7 +98,7 @@ class Item(FieldSet):
         yield UInt32(self, "id")
         yield UInt32(self, "type")
         yield UInt32(self, "attr_count")
-        for index in xrange(self["attr_count"].value):
+        for index in range(self["attr_count"].value):
             yield Attribute(self, "attr[]")
 
     def createDescription(self):
@@ -107,7 +107,7 @@ class Item(FieldSet):
 class Items(FieldSet):
     def createFields(self):
         yield UInt32(self, "count")
-        for index in xrange(self["count"].value):
+        for index in range(self["count"].value):
             yield Item(self, "item[]")
 
 class EncryptedItem(FieldSet):
@@ -117,14 +117,14 @@ class EncryptedItem(FieldSet):
         yield TimestampUnix64(self, "mtime")
         yield TimestampUnix64(self, "ctime")
         yield KeyringString(self, "reserved[]")
-        for index in xrange(4):
+        for index in range(4):
             yield UInt32(self, "reserved[]")
         yield UInt32(self, "attr_count")
-        for index in xrange(self["attr_count"].value):
+        for index in range(self["attr_count"].value):
             yield Attribute(self, "attr[]")
         yield UInt32(self, "acl_count")
-        for index in xrange(self["acl_count"].value):
-            yield ACL(self, "acl[]")
+        for index in range(self["acl_count"].value):
+            yield AC(self, "acl[]")
 #        size = 8 # paddingSize((self.stream.size - self.current_size) // 8, 16)
 #        if size:
 #            yield NullBytes(self, "hash_padding", size, "16 bytes alignment")
@@ -160,7 +160,7 @@ class GnomeKeyring(Parser):
         "description": u"Gnome keyring",
     }
     CRYPTO_NAMES = {
-        0: u"AEL",
+        0: u"AE",
     }
     HASH_NAMES = {
         0: u"MD5",
@@ -194,7 +194,7 @@ class GnomeKeyring(Parser):
 
 def generate_key(password, salt, hash_iterations):
     sha = sha256(password+salt)
-    for index in xrange(hash_iterations-1):
+    for index in range(hash_iterations-1):
         sha = sha256(sha)
     return sha[:16], sha[16:]
 

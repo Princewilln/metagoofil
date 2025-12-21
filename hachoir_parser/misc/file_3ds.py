@@ -35,7 +35,7 @@ class Polygon(StaticFieldSet):
 
 def readMapList(parent):
     yield UInt16(parent, "count", "Map count")
-    for index in xrange(parent["count"].value):
+    for index in range(parent["count"].value):
         yield MapUV(parent, "map_uv[]", "Mapping UV")
 
 def readColor(parent):

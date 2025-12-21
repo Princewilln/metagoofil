@@ -88,7 +88,7 @@ class Log:
 
         # Add message to log buffer
         if self.use_buffer:
-            if not self.__buffer.has_key(level):
+            if level not in self.__buffer:
                 self.__buffer[level] = [text]
             else:
                 self.__buffer[level].append(text)

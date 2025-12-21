@@ -97,7 +97,7 @@ class PDFLayoutAnalyzer(PDFTextDevice):
     def render_char(self, matrix, font, fontsize, scaling, rise, cid):
         try:
             text = font.to_unichr(cid)
-            assert isinstance(text, unicode), text
+            assert isinstance(text, str), text
         except PDFUnicodeNotDefined:
             text = self.handle_undefined_char(font, cid)
         textwidth = font.char_width(cid)
@@ -108,7 +108,7 @@ class PDFLayoutAnalyzer(PDFTextDevice):
 
     def handle_undefined_char(self, font, cid):
         if self.debug:
-            print >>sys.stderr, 'undefined: %r, %r' % (font, cid)
+            print('undefined: %r, %r' % (font, cid)
         return '(cid:%d)' % cid
 
     def receive_layout(self, ltpage):
@@ -159,7 +159,7 @@ class PDFConverter(PDFLayoutAnalyzer):
             data = stream.get_data()
         name = image.name+ext
         path = os.path.join(self.outdir, name)
-        fp = file(path, 'wb')
+        fp = open(path, 'wb')
         fp.write(data)
         fp.close()
         return name

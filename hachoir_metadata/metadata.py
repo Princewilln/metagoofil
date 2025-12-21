@@ -7,7 +7,7 @@ from hachoir_core.error import error, HACHOIR_ERRORS
 from hachoir_core.i18n import _
 from hachoir_core.log import Logger
 from hachoir_metadata.metadata_item import (
-    MIN_PRIORITY, MAX_PRIORITY, QUALITY_NORMAL)
+    MIN_PRIORITY, MAX_PRIORITY, QUALITY_NORMA)
 from hachoir_metadata.register import registerAllItems
 
 extractors = {}
@@ -15,8 +15,8 @@ extractors = {}
 class Metadata(Logger):
     header = u"Metadata"
 
-    def __init__(self, parent, quality=QUALITY_NORMAL):
-        assert isinstance(self.header, unicode)
+    def __init__(self, parent, quality=QUALITY_NORMA):
+        assert isinstance(self.header, str)
 
         # Limit to 0.0 .. 1.0
         if parent:
@@ -115,7 +115,7 @@ class Metadata(Logger):
         self.__data[data.key] = data
 
     def __iter__(self):
-        return self.__data.itervalues()
+        return self.__data.values()
 
     def __str__(self):
         r"""
@@ -124,8 +124,8 @@ class Metadata(Logger):
 
         >>> a = RootMetadata()
         >>> a.author = "haypo"
-        >>> a.copyright = unicode("© Hachoir", "UTF-8")
-        >>> print a
+        >>> a.copyright = str("© Hachoir", "UTF-8")
+        >>> print(a
         Metadata:
         - Author: haypo
         - Copyright: \xa9 Hachoir
@@ -141,8 +141,8 @@ class Metadata(Logger):
         represents all datas.
 
         >>> a = RootMetadata()
-        >>> a.copyright = unicode("© Hachoir", "UTF-8")
-        >>> print repr(unicode(a))
+        >>> a.copyright = str("© Hachoir", "UTF-8")
+        >>> print(repr(str(a))
         u'Metadata:\n- Copyright: \xa9 Hachoir'
 
         @see __str__() and exportPlaintext()
@@ -160,11 +160,11 @@ class Metadata(Logger):
 
         If priority is too small, metadata are empty and so None is returned.
 
-        >>> print RootMetadata().exportPlaintext()
+        >>> print(RootMetadata().exportPlaintext()
         None
         >>> meta = RootMetadata()
-        >>> meta.copyright = unicode("© Hachoir", "UTF-8")
-        >>> print repr(meta.exportPlaintext())
+        >>> meta.copyright = str("© Hachoir", "UTF-8")
+        >>> print(repr(meta.exportPlaintext())
         [u'Metadata:', u'- Copyright: \xa9 Hachoir']
 
         @see __str__() and __unicode__()
@@ -198,15 +198,15 @@ class Metadata(Logger):
             return None
 
     def __nonzero__(self):
-        return any(item for item in self.__data.itervalues())
+        return any(item for item in self.__data.values())
 
 class RootMetadata(Metadata):
-    def __init__(self, quality=QUALITY_NORMAL):
+    def __init__(self, quality=QUALITY_NORMA):
         Metadata.__init__(self, None, quality)
 
 class MultipleMetadata(RootMetadata):
     header = _("Common")
-    def __init__(self, quality=QUALITY_NORMAL):
+    def __init__(self, quality=QUALITY_NORMA):
         RootMetadata.__init__(self, quality)
         object.__setattr__(self, "_MultipleMetadata__groups", Dict())
         object.__setattr__(self, "_MultipleMetadata__key_counter", {})
@@ -218,7 +218,7 @@ class MultipleMetadata(RootMetadata):
         return self.__groups[key]
 
     def iterGroups(self):
-        return self.__groups.itervalues()
+        return self.__groups.values()
 
     def __nonzero__(self):
         if RootMetadata.__nonzero__(self):
@@ -252,7 +252,7 @@ class MultipleMetadata(RootMetadata):
             text = common
         else:
             text = []
-        for key, metadata in self.__groups.iteritems():
+        for key, metadata in self.__groups.items():
             if not human:
                 title = key
             else:
@@ -270,7 +270,7 @@ def registerExtractor(parser, extractor):
     assert issubclass(extractor, RootMetadata)
     extractors[parser] = extractor
 
-def extractMetadata(parser, quality=QUALITY_NORMAL):
+def extractMetadata(parser, quality=QUALITY_NORMA):
     """
     Create a Metadata class from a parser. Returns None if no metadata
     extractor does exist for the parser class.

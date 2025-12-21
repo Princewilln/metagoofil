@@ -89,28 +89,28 @@ max-height: 300px;
         page.h2("Metagoofil results")
         page.h3("Results for: " + self.domain)
         graph = graphs.BarGraph('vBar')
-	try:
-        	graph.values = [len(self.users),len(self.softs),len(self.emails),len(self.paths)]
-		graph.labels = ["Usernames","Software","Emails","Paths/Servers"]
-		graph.showValues = 1
-        	page.body(graph.create())
-	except:
-		print("graph")
-	try:
-		page.h3("User names found:")
-		page.ul( class_="userslist")
-		page.li( self.users, class_="useritem")
-		page.ul.close( )
-		page.h3("Software versions found:")
-	except:
-		print("user")
         try:
-		page.ul( class_="softlist")
-		page.li(self.softs, class_="softitem")
-		page.ul.close( )
-	except:
-		print("email")
-	page.h3("E-mails found:")
+            graph.values = [len(self.users),len(self.softs),len(self.emails),len(self.paths)]
+            graph.labels = ["Usernames","Software","Emails","Paths/Servers"]
+            graph.showValues = 1
+            page.body(graph.create())
+        except:
+            print("graph")
+        try:
+            page.h3("User names found:")
+            page.ul( class_="userslist")
+            page.li( self.users, class_="useritem")
+            page.ul.close( )
+            page.h3("Software versions found:")
+        except:
+            print("user")
+        try:
+            page.ul( class_="softlist")
+            page.li(self.softs, class_="softitem")
+            page.ul.close( )
+        except:
+            print("email")
+        page.h3("E-mails found:")
         if self.emails!=[]:
             page.ul( class_="emailslist")
             page.li(self.emails, class_="emailitem")

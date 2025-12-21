@@ -49,7 +49,7 @@ class metaMs2k:
 						xres= line.replace("- Comment: Template:","")
 						self.paths.append(xres)
 				elif res[1]==" LastSavedBy":
-				#		print res[1] + res[2]
+				#		print(res[1] + res[2]
 						self.users.append(res[2])
 				elif res[1]==" LastPrinted":
 						self.lastPrinted.append(res[2])

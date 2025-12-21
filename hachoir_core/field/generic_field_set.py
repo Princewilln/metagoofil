@@ -165,7 +165,7 @@ class GenericFieldSet(BasicFieldSet):
         self.__is_feeding = True
         try:
             field_size = field.size
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             if field.is_field_set and field.current_length and field.eof:
                 self.warning("Error when getting size of '%s': %s" % (field.name, err))
                 field._stopFeeding()
@@ -187,8 +187,8 @@ class GenericFieldSet(BasicFieldSet):
         self._current_size += field.size
         try:
             self._fields.append(field._name, field)
-        except UniqKeyError, err:
-            self.warning("Duplicate field name " + unicode(err))
+        except UniqKeyError as err:
+            self.warning("Duplicate field name " + str(err))
             field._name += "[]"
             self.setUniqueFieldName(field)
             self._fields.append(field._name, field)
@@ -310,7 +310,7 @@ class GenericFieldSet(BasicFieldSet):
         """
         if self._size is None or not self.autofix:
             return False
-        self.warning(unicode(exception))
+        self.warning(str(exception))
         return self._fixLastField()
 
     def _feedUntil(self, field_name):
@@ -328,7 +328,7 @@ class GenericFieldSet(BasicFieldSet):
                 self._addField(field)
                 if field.name == field_name:
                     return field
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             if self._fixFeedError(err) is False:
                 raise
         except StopIteration:
@@ -345,9 +345,9 @@ class GenericFieldSet(BasicFieldSet):
             return 0
         oldlen = len(self._fields)
         try:
-            for index in xrange(number):
+            for index in range(number):
                 self._addField( self._field_generator.next() )
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             if self._fixFeedError(err) is False:
                 raise
         except StopIteration:
@@ -361,7 +361,7 @@ class GenericFieldSet(BasicFieldSet):
             while True:
                 field = self._field_generator.next()
                 self._addField(field)
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             if self._fixFeedError(err) is False:
                 raise
         except StopIteration:
@@ -382,7 +382,7 @@ class GenericFieldSet(BasicFieldSet):
                 for field in self._fields.values[done:]:
                     yield field
                     done += 1
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             field = self._fixFeedError(err)
             if isinstance(field, Field):
                 yield field

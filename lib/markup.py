@@ -29,10 +29,10 @@ class element:
     def __init__( self, tag, case='lower', parent=None ):
         self.parent = parent
 
-	if case == 'lower':
-	    self.tag = tag.lower( )
-	else:
-	    self.tag = tag.upper( )
+    if case == 'lower':
+        self.tag = tag.lower( )
+    else:
+        self.tag = tag.upper( )
     
     def __call__( self, *args, **kwargs ):
         if len( args ) > 1:
@@ -67,8 +67,8 @@ class element:
     def render( self, tag, single, between, kwargs ):
         """Append the actual tags to content."""
 
-	out = "<%s" % tag
-	for key, value in kwargs.iteritems( ):
+    out = "<%s" % tag
+    for key, value in kwargs.iteritems( ):
             if value is not None:               # when value is None that means stuff like <... checked>
                 key = key.strip('_')            # strip this so class_ will mean class, etc.
                 if key == 'http_equiv':         # special cases, maybe change _ to - overall?
@@ -78,13 +78,13 @@ class element:
                 out = "%s %s=\"%s\"" % ( out, key, escape( value ) )
             else:
                 out = "%s %s" % ( out, key )
-	if between is not None:
-	    out = "%s>%s</%s>" % ( out, between, tag )
-	else:
-	    if single:
-		out = "%s />" % out
-	    else:
-		out = "%s>" % out
+    if between is not None:
+        out = "%s>%s</%s>" % ( out, between, tag )
+    else:
+        if single:
+        out = "%s />" % out
+        else:
+        out = "%s>" % out
         if self.parent is not None:
             self.parent.content.append( out )
         else:
@@ -135,9 +135,9 @@ class page:
         
         valid_onetags = [ "AREA", "BASE", "BR", "COL", "FRAME", "HR", "IMG", "INPUT", "LINK", "META", "PARAM" ]
         valid_twotags = [ "A", "ABBR", "ACRONYM", "ADDRESS", "B", "BDO", "BIG", "BLOCKQUOTE", "BODY", "BUTTON",
-                "CAPTION", "CITE", "CODE", "COLGROUP", "DD", "DEL", "DFN", "DIV", "DL", "DT", "EM", "FIELDSET",
+                "CAPTION", "CITE", "CODE", "COLGROUP", "DD", "DE", "DFN", "DIV", "D", "DT", "EM", "FIELDSET",
                 "FORM", "FRAMESET", "H1", "H2", "H3", "H4", "H5", "H6", "HEAD", "HTML", "I", "IFRAME", "INS",
-                "KBD", "LABEL", "LEGEND", "LI", "MAP", "NOFRAMES", "NOSCRIPT", "OBJECT", "OL", "OPTGROUP",
+                "KBD", "LABE", "LEGEND", "LI", "MAP", "NOFRAMES", "NOSCRIPT", "OBJECT", "OL", "OPTGROUP",
                 "OPTION", "P", "PRE", "Q", "SAMP", "SCRIPT", "SELECT", "SMALL", "SPAN", "STRONG", "STYLE",
                 "SUB", "SUP", "TABLE", "TBODY", "TD", "TEXTAREA", "TFOOT", "TH", "THEAD", "TITLE", "TR",
                 "TT", "UL", "VAR" ]
@@ -145,30 +145,30 @@ class page:
         deprecated_twotags = [ "APPLET", "CENTER", "DIR", "FONT", "MENU", "S", "STRIKE", "U" ]
 
         self.header = [ ]
-	self.content = [ ]
+    self.content = [ ]
         self.footer = [ ]
-	self.case = case
+    self.case = case
         self.separator = separator
 
         # init( ) sets it to True so we know that </body></html> has to be printed at the end
         self._full = False
         self.class_= class_
 
-	if mode == 'strict_html' or mode == 'html':
-	    self.onetags = valid_onetags
-	    self.onetags += map( string.lower, self.onetags )
-	    self.twotags = valid_twotags
-	    self.twotags += map( string.lower, self.twotags )
-	    self.deptags = deprecated_onetags + deprecated_twotags
-	    self.deptags += map( string.lower, self.deptags )
-	    self.mode = 'strict_html'
-	elif mode == 'loose_html':
-	    self.onetags = valid_onetags + deprecated_onetags 
-	    self.onetags += map( string.lower, self.onetags )
-	    self.twotags = valid_twotags + deprecated_twotags
-	    self.twotags += map( string.lower, self.twotags )
-	    self.mode = mode
-	elif mode == 'xml':
+    if mode == 'strict_html' or mode == 'html':
+        self.onetags = valid_onetags
+        self.onetags += map( string.lower, self.onetags )
+        self.twotags = valid_twotags
+        self.twotags += map( string.lower, self.twotags )
+        self.deptags = deprecated_onetags + deprecated_twotags
+        self.deptags += map( string.lower, self.deptags )
+        self.mode = 'strict_html'
+    elif mode == 'loose_html':
+        self.onetags = valid_onetags + deprecated_onetags 
+        self.onetags += map( string.lower, self.onetags )
+        self.twotags = valid_twotags + deprecated_twotags
+        self.twotags += map( string.lower, self.twotags )
+        self.mode = mode
+    elif mode == 'xml':
             if onetags and twotags:
                 self.onetags = onetags
                 self.twotags = twotags
@@ -178,8 +178,8 @@ class page:
                 self.onetags = russell( )
                 self.twotags = russell( )
             self.mode = mode
-	else:
-	    raise ModeError( mode )
+    else:
+        raise ModeError( mode )
 
     def __getattr__( self, attr ):
         if attr.startswith("__") and attr.endswith("__"):
@@ -192,13 +192,13 @@ class page:
             end = [ '</body>', '</html>' ]
         else:
             end = [ ]
-	
+    
         return self.separator.join( self.header + self.content + self.footer + end )
 
     def __call__( self, escape=False ):
         """Return the document as a string.
 
-        escape --   False   print normally
+        escape --   False   print(normally
                     True    replace < and > by &lt; and &gt;
                             the default escape sequences in most browsers"""
 
@@ -307,7 +307,7 @@ class page:
         """This convenience function is only useful for html.
         It adds css stylesheet(s) to the document via the <link> element."""
       
-        if isinstance( filelist, basestring ):
+        if isinstance( filelist, str ):
             self.link( href=filelist, rel='stylesheet', type='text/css', media='all' )
         else:
             for file in filelist:
@@ -383,7 +383,7 @@ def _argsdicts( args, mydict ):
 def _totuple( x ):
     """Utility stuff to convert string, int, float, None or anything to a usable tuple."""
 
-    if isinstance( x, basestring ):
+    if isinstance( x, str ):
         out = x,
     elif isinstance( x, ( int, float ) ):
         out = str( x ),
@@ -397,7 +397,7 @@ def _totuple( x ):
 def escape( text, newline=False ):
     """Escape special html characters."""
 
-    if isinstance( text, basestring ):
+    if isinstance( text, str ):
         if '&' in text:
             text = text.replace( '&', '&amp;' )
         if '>' in text:
@@ -419,7 +419,7 @@ _escape = escape
 def unescape( text ):
     """Inverse of escape."""
     
-    if isinstance( text, basestring ):
+    if isinstance( text, str ):
         if '&amp;' in text:
             text = text.replace( '&amp;', '&' )
         if '&gt;' in text:
@@ -444,41 +444,41 @@ class russell:
     """A dummy class that contains anything."""
 
     def __contains__( self, item ):
-	return True
+    return True
 
 
 class MarkupError( Exception ):
     """All our exceptions subclass this."""
     def __str__( self ):
-	return self.message
+    return self.message
 
 class ClosingError( MarkupError ):
     def __init__( self, tag ):
-	self.message = "The element '%s' does not accept non-keyword arguments (has no closing tag)." % tag
+    self.message = "The element '%s' does not accept non-keyword arguments (has no closing tag)." % tag
 
 class OpeningError( MarkupError ):
     def __init__( self, tag ):
-	self.message = "The element '%s' can not be opened." % tag
+    self.message = "The element '%s' can not be opened." % tag
 
 class ArgumentError( MarkupError ):
     def __init__( self, tag ):
-	self.message = "The element '%s' was called with more than one non-keyword argument." % tag
+    self.message = "The element '%s' was called with more than one non-keyword argument." % tag
 
 class InvalidElementError( MarkupError ):
     def __init__( self, tag, mode ):
-	self.message = "The element '%s' is not valid for your mode '%s'." % ( tag, mode )
+    self.message = "The element '%s' is not valid for your mode '%s'." % ( tag, mode )
 
 class DeprecationError( MarkupError ):
     def __init__( self, tag ):
-	self.message = "The element '%s' is deprecated, instantiate markup.page with mode='loose_html' to allow it." % tag
+    self.message = "The element '%s' is deprecated, instantiate markup.page with mode='loose_html' to allow it." % tag
 
 class ModeError( MarkupError ):
     def __init__( self, mode ):
-	self.message = "Mode '%s' is invalid, possible values: strict_html, loose_html, xml." % mode
+    self.message = "Mode '%s' is invalid, possible values: strict_html, loose_html, xml." % mode
 
 class CustomizationError( MarkupError ):
     def __init__( self ):
         self.message = "If you customize the allowed elements, you must define both types 'onetags' and 'twotags'."
 
 if __name__ == '__main__':
-    print __doc__
+    print(__doc__

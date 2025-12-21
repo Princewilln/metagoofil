@@ -169,7 +169,7 @@ def parseNames(self):
 
     # Read name index
     entries = []
-    for index in xrange(self["count"].value):
+    for index in range(self["count"].value):
         entry = NameHeader(self, "header[]")
         yield entry
         entries.append(entry)
@@ -259,7 +259,7 @@ class TrueTypeFontFile(Parser):
         yield UInt16(self, "entry_selector")
         yield UInt16(self, "range_shift")
         tables = []
-        for index in xrange(self["nb_table"].value):
+        for index in range(self["nb_table"].value):
             table = TableHeader(self, "table_hdr[]")
             yield table
             tables.append(table)

@@ -129,7 +129,7 @@ EOL = re.compile(r'[\r\n]')
 SPC = re.compile(r'\s')
 NONSPC = re.compile(r'\S')
 HEX = re.compile(r'[0-9a-fA-F]')
-END_LITERAL = re.compile(r'[#/%\[\]()<>{}\s]')
+END_LITERA = re.compile(r'[#/%\[\]()<>{}\s]')
 END_HEX_STRING = re.compile(r'[^\s0-9a-fA-F]')
 HEX_PAIR = re.compile(r'[0-9a-fA-F]{2}|.')
 END_NUMBER = re.compile(r'[^0-9]')
@@ -168,7 +168,7 @@ class PSBaseParser(object):
         if not pos:
             pos = self.bufpos+self.charpos
         self.fp.seek(pos)
-        print >>sys.stderr, 'poll(%d): %r' % (pos, self.fp.read(n))
+        print('poll(%d): %r' % (pos, self.fp.read(n))
         self.fp.seek(pos0)
         return
 
@@ -176,7 +176,7 @@ class PSBaseParser(object):
         """Seeks the parser to the given position.
         """
         if 2 <= self.debug:
-            print >>sys.stderr, 'seek: %r' % pos
+            print('seek: %r' % pos
         self.fp.seek(pos)
         # reset the status for nextline()
         self.bufpos = pos
@@ -226,7 +226,7 @@ class PSBaseParser(object):
                 linebuf += self.buf[self.charpos:]
                 self.charpos = len(self.buf)
         if 2 <= self.debug:
-            print >>sys.stderr, 'nextline: %r' % ((linepos, linebuf),)
+            print('nextline: %r' % ((linepos, linebuf),)
         return (linepos, linebuf)
 
     def revreadlines(self):
@@ -314,7 +314,7 @@ class PSBaseParser(object):
         return j
 
     def _parse_literal(self, s, i):
-        m = END_LITERAL.search(s, i)
+        m = END_LITERA.search(s, i)
         if not m:
             self._curtoken += s[i:]
             return len(s)
@@ -465,7 +465,7 @@ class PSBaseParser(object):
             self.charpos = self._parse1(self.buf, self.charpos)
         token = self._tokens.pop(0)
         if 2 <= self.debug:
-            print >>sys.stderr, 'nexttoken: %r' % (token,)
+            print('nexttoken: %r' % (token,)
         return token
 
 
@@ -506,7 +506,7 @@ class PSStackParser(PSBaseParser):
     
     def add_results(self, *objs):
         if 2 <= self.debug:
-            print >>sys.stderr, 'add_results: %r' % (objs,)
+            print('add_results: %r' % (objs,)
         self.results.extend(objs)
         return
 
@@ -514,7 +514,7 @@ class PSStackParser(PSBaseParser):
         self.context.append((pos, self.curtype, self.curstack))
         (self.curtype, self.curstack) = (type, [])
         if 2 <= self.debug:
-            print >>sys.stderr, 'start_type: pos=%r, type=%r' % (pos, type)
+            print('start_type: pos=%r, type=%r' % (pos, type)
         return
     
     def end_type(self, type):
@@ -523,7 +523,7 @@ class PSStackParser(PSBaseParser):
         objs = [ obj for (_,obj) in self.curstack ]
         (pos, self.curtype, self.curstack) = self.context.pop()
         if 2 <= self.debug:
-            print >>sys.stderr, 'end_type: pos=%r, type=%r, objs=%r' % (pos, type, objs)
+            print('end_type: pos=%r, type=%r, objs=%r' % (pos, type, objs)
         return (pos, objs)
 
     def do_keyword(self, pos, token):
@@ -537,7 +537,7 @@ class PSStackParser(PSBaseParser):
         """
         while not self.results:
             (pos, token) = self.nexttoken()
-            #print (pos,token), (self.curtype, self.curstack)
+            #print((pos,token), (self.curtype, self.curstack)
             if (isinstance(token, int) or
                 isinstance(token, float) or
                 isinstance(token, bool) or
@@ -579,7 +579,7 @@ class PSStackParser(PSBaseParser):
                     if STRICT: raise
             else:
                 if 2 <= self.debug:
-                    print >>sys.stderr, 'do_keyword: pos=%r, token=%r, stack=%r' % \
+                    print('do_keyword: pos=%r, token=%r, stack=%r' % \
                           (pos, token, self.curstack)
                 self.do_keyword(pos, token)
             if self.context:
@@ -588,7 +588,7 @@ class PSStackParser(PSBaseParser):
                 self.flush()
         obj = self.results.pop(0)
         if 2 <= self.debug:
-            print >>sys.stderr, 'nextobject: %r' % (obj,)
+            print('nextobject: %r' % (obj,)
         return obj
 
 
@@ -673,13 +673,13 @@ func/a/b{(c)do*}def
 
     def test_1(self):
         tokens = self.get_tokens(self.TESTDATA)
-        print tokens
+        print(tokens
         self.assertEqual(tokens, self.TOKENS)
         return
 
     def test_2(self):
         objs = self.get_objects(self.TESTDATA)
-        print objs
+        print(objs
         self.assertEqual(objs, self.OBJS)
         return
 

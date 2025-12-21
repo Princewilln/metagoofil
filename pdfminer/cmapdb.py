@@ -46,7 +46,7 @@ class CMap(object):
     def use_cmap(self, cmap):
         assert isinstance(cmap, CMap)
         def copy(dst, src):
-            for (k,v) in src.iteritems():
+            for (k,v) in src.items():
                 if isinstance(v, dict):
                     d = {}
                     dst[k] = d
@@ -58,7 +58,7 @@ class CMap(object):
 
     def decode(self, code):
         if self.debug:
-            print >>sys.stderr, 'decode: %r, %r' % (self, code)
+            print('decode: %r, %r' % (self, code)
         d = self.code2cid
         for c in code:
             c = ord(c)
@@ -75,7 +75,7 @@ class CMap(object):
         if code2cid is None:
             code2cid = self.code2cid
             code = ()
-        for (k,v) in sorted(code2cid.iteritems()):
+        for (k,v) in sorted(code2cid.items()):
             c = code+(k,)
             if isinstance(v, int):
                 out.write('code %r = cid %d\n' % (c,v))
@@ -116,11 +116,11 @@ class UnicodeMap(object):
 
     def get_unichr(self, cid):
         if self.debug:
-            print >>sys.stderr, 'get_unichr: %r, %r' % (self, cid)
+            print('get_unichr: %r, %r' % (self, cid)
         return self.cid2unichr[cid]
 
     def dump(self, out=sys.stdout):
-        for (k,v) in sorted(self.cid2unichr.iteritems()):
+        for (k,v) in sorted(self.cid2unichr.items()):
             out.write('cid %d = unicode %r\n' % (k,v))
         return
 
@@ -180,10 +180,10 @@ class FileUnicodeMap(UnicodeMap):
         assert isinstance(cid, int)
         if isinstance(code, PSLiteral):
             # Interpret as an Adobe glyph name.
-            self.cid2unichr[cid] = name2unicode(code.name)
+            self.cid2unichr[cid] = name2str(code.name)
         elif isinstance(code, str):
             # Interpret as UTF-16BE.
-            self.cid2unichr[cid] = unicode(code, 'UTF-16BE', 'ignore')
+            self.cid2unichr[cid] = str(code, 'UTF-16BE', 'ignore')
         elif isinstance(code, int):
             self.cid2unichr[cid] = unichr(code)
         else:
@@ -239,7 +239,7 @@ class CMapDB(object):
     def _load_data(klass, name):
         filename = '%s.pickle.gz' % name
         if klass.debug:
-            print >>sys.stderr, 'loading:', name
+            print('loading:', name
         default_path = os.environ.get('CMAP_PATH', '/usr/share/pdfminer/')
         for directory in (os.path.dirname(cmap.__file__), default_path):
             path = os.path.join(directory, filename)
@@ -410,7 +410,7 @@ class CMapParser(PSStackParser):
 def main(argv):
     args = argv[1:]
     for fname in args:
-        fp = file(fname, 'rb')
+        fp = open(fname, 'rb')
         cmap = FileUnicodeMap()
         #cmap = FileCMap()
         CMapParser(cmap, fp).run()

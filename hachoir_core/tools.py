@@ -249,7 +249,7 @@ controlchars = tuple({
         ord("\a"): r"\a",
         ord("\b"): r"\b",
     }.get(code, '\\x%02x' % code)
-    for code in xrange(128)
+    for code in range(128)
 )
 
 def makePrintable(data, charset, quote=None, to_unicode=False, smart=True):
@@ -259,7 +259,7 @@ def makePrintable(data, charset, quote=None, to_unicode=False, smart=True):
     are escaped if data type is 'str' or if charset is "ASCII".
 
     Examples with Unicode:
-    >>> aged = unicode("âgé", "UTF-8")
+    >>> aged = str("âgé", "UTF-8")
     >>> repr(aged)  # text type is 'unicode'
     "u'\\xe2g\\xe9'"
     >>> makePrintable("abc\0", "UTF-8")
@@ -270,7 +270,7 @@ def makePrintable(data, charset, quote=None, to_unicode=False, smart=True):
     '"\xe2g\xe9"'
 
     Examples with string encoded in latin1:
-    >>> aged_latin = unicode("âgé", "UTF-8").encode("latin1")
+    >>> aged_latin = str("âgé", "UTF-8").encode("latin1")
     >>> repr(aged_latin)  # text type is 'str'
     "'\\xe2g\\xe9'"
     >>> makePrintable(aged_latin, "latin1")
@@ -289,17 +289,17 @@ def makePrintable(data, charset, quote=None, to_unicode=False, smart=True):
     '\\0\\3\\n\\x10 \\x7f'
 
     Quote character may also be escaped (only ' and "):
-    >>> print makePrintable("a\"b", "latin-1", quote='"')
+    >>> print(makePrintable("a\"b", "latin-1", quote='"')
     "a\"b"
-    >>> print makePrintable("a\"b", "latin-1", quote="'")
+    >>> print(makePrintable("a\"b", "latin-1", quote="'")
     'a"b'
-    >>> print makePrintable("a'b", "latin-1", quote="'")
+    >>> print(makePrintable("a'b", "latin-1", quote="'")
     'a\'b'
     """
 
     if data:
-        if not isinstance(data, unicode):
-            data = unicode(data, "ISO-8859-1")
+        if not isinstance(data, str):
+            data = str(data, "ISO-8859-1")
             charset = "ASCII"
         data = regex_control_code.sub(
             lambda regs: controlchars[ord(regs.group(1))], data)
@@ -314,7 +314,7 @@ def makePrintable(data, charset, quote=None, to_unicode=False, smart=True):
         # Replace \x00\x01 by \0\1
         data = re.sub(r"\\x0([0-7])(?=[^0-7]|$)", r"\\\1", data)
     if to_unicode:
-        data = unicode(data, charset)
+        data = str(data, charset)
     return data
 
 def makeUnicode(text):
@@ -328,9 +328,9 @@ def makeUnicode(text):
     u'a\xe9'
     """
     if isinstance(text, str):
-        text = unicode(text, "ISO-8859-1")
-    elif not isinstance(text, unicode):
-        text = unicode(text)
+        text = str(text, "ISO-8859-1")
+    elif not isinstance(text, str):
+        text = str(text)
     text = regex_control_code.sub(
         lambda regs: controlchars[ord(regs.group(1))], text)
     text = re.sub(r"\\x0([0-7])(?=[^0-7]|$)", r"\\\1", text)
@@ -408,7 +408,7 @@ def humanUnixAttributes(mode):
         return '?'
 
     chars = [ ftypelet(mode), 'r', 'w', 'x', 'r', 'w', 'x', 'r', 'w', 'x' ]
-    for i in xrange(1, 10):
+    for i in range(1, 10):
         if not mode & 1 << 9 - i:
             chars[i] = '-'
     if mode & stat.S_ISUID:
@@ -439,7 +439,7 @@ def createDict(data, index):
     >>> createDict(data, 2)
     {10: 'a', 20: 'b'}
     """
-    return dict( (key,values[index]) for key, values in data.iteritems() )
+    return dict( (key,values[index]) for key, values in data.items() )
 
 # Start of UNIX timestamp (Epoch): 1st January 1970 at 00:00
 UNIX_TIMESTAMP_T0 = datetime(1970, 1, 1)
@@ -556,7 +556,7 @@ def humanDatetime(value, strip_microsecond=True):
     >>> humanDatetime( datetime(2003, 6, 30, 16, 0, 5, 370000), False )
     u'2003-06-30 16:00:05.370000'
     """
-    text = unicode(value.isoformat())
+    text = str(value.isoformat())
     text = text.replace('T', ' ')
     if strip_microsecond and "." in text:
         text = text.split(".")[0]

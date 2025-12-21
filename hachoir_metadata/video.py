@@ -288,7 +288,7 @@ class AsfMetadata(MultipleMetadata):
                 del data["IsVBR"]
 
             # Store data
-            for key, value in data.iteritems():
+            for key, value in data.items():
                 if key in self.EXT_DESC_TO_ATTR:
                     key = self.EXT_DESC_TO_ATTR[key]
                 else:

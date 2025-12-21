@@ -49,7 +49,7 @@ class ItemContent(FieldSet):
                 args = (self, "value[]")
             else:
                 args = (self, "value")
-        for index in xrange(count):
+        for index in range(count):
             yield cls(*args)
 
 class Item(FieldSet):

@@ -157,7 +157,7 @@ class PDFResourceManager(object):
             font = self._cached_fonts[objid]
         else:
             if 2 <= self.debug:
-                print >>sys.stderr, 'get_font: create: objid=%r, spec=%r' % (objid, spec)
+                print('get_font: create: objid=%r, spec=%r' % (objid, spec)
             if STRICT:
                 if spec['Type'] is not LITERAL_FONT:
                     raise PDFFontError('Type is not /Font')
@@ -253,7 +253,7 @@ class PDFContentParser(PSStackParser):
             else:
                 try:
                     j = self.buf.index(target[0], self.charpos)
-                    #print 'found', (0, self.buf[j:j+10])
+                    #print('found', (0, self.buf[j:j+10])
                     data += self.buf[self.charpos:j+1]
                     self.charpos = j+1
                     i = 1
@@ -325,23 +325,23 @@ class PDFPageInterpreter(object):
                 return PDFColorSpace(name, len(list_value(spec[1])))
             else:
                 return PREDEFINED_COLORSPACE[name]
-        for (k,v) in dict_value(resources).iteritems():
+        for (k,v) in dict_value(resources).items():
             if 2 <= self.debug:
-                print >>sys.stderr, 'Resource: %r: %r' % (k,v)
+                print('Resource: %r: %r' % (k,v)
             if k == 'Font':
-                for (fontid,spec) in dict_value(v).iteritems():
+                for (fontid,spec) in dict_value(v).items():
                     objid = None
                     if isinstance(spec, PDFObjRef):
                         objid = spec.objid
                     spec = dict_value(spec)
                     self.fontmap[fontid] = self.rsrcmgr.get_font(objid, spec)
             elif k == 'ColorSpace':
-                for (csid,spec) in dict_value(v).iteritems():
+                for (csid,spec) in dict_value(v).items():
                     self.csmap[csid] = get_colorspace(resolve1(spec))
             elif k == 'ProcSet':
                 self.rsrcmgr.get_procset(list_value(v))
             elif k == 'XObject':
-                for (xobjid,xobjstrm) in dict_value(v).iteritems():
+                for (xobjid,xobjstrm) in dict_value(v).items():
                     self.xobjmap[xobjid] = xobjstrm
         return
 
@@ -647,7 +647,7 @@ class PDFPageInterpreter(object):
         (a,b,c,d,e,f) = self.textstate.matrix
         self.textstate.matrix = (a,b,c,d,tx*a+ty*c+e,tx*b+ty*d+f)
         self.textstate.linematrix = (0, 0)
-        #print >>sys.stderr, 'Td(%r,%r): %r' % (tx,ty,self.textstate)
+        #print('Td(%r,%r): %r' % (tx,ty,self.textstate)
         return
     # text-move
     def do_TD(self, tx, ty):
@@ -655,7 +655,7 @@ class PDFPageInterpreter(object):
         self.textstate.matrix = (a,b,c,d,tx*a+ty*c+e,tx*b+ty*d+f)
         self.textstate.leading = ty
         self.textstate.linematrix = (0, 0)
-        #print >>sys.stderr, 'TD(%r,%r): %r' % (tx,ty,self.textstate)
+        #print('TD(%r,%r): %r' % (tx,ty,self.textstate)
         return
     # textmatrix
     def do_Tm(self, a,b,c,d,e,f):
@@ -671,7 +671,7 @@ class PDFPageInterpreter(object):
 
     # show-pos
     def do_TJ(self, seq):
-        #print >>sys.stderr, 'TJ(%r): %r' % (seq,self.textstate)
+        #print('TJ(%r): %r' % (seq,self.textstate)
         if self.textstate.font is None:
             if STRICT:
                 raise PDFInterpreterError('No font specified!')
@@ -717,7 +717,7 @@ class PDFPageInterpreter(object):
                 raise PDFInterpreterError('Undefined xobject id: %r' % xobjid)
             return
         if 1 <= self.debug:
-            print >>sys.stderr, 'Processing xobj: %r' % xobj
+            print('Processing xobj: %r' % xobj
         subtype = xobj.get('Subtype')
         if subtype is LITERAL_FORM and 'BBox' in xobj:
             interpreter = self.dup()
@@ -741,7 +741,7 @@ class PDFPageInterpreter(object):
 
     def process_page(self, page):
         if 1 <= self.debug:
-            print >>sys.stderr, 'Processing page: %r' % page
+            print('Processing page: %r' % page
         (x0,y0,x1,y1) = page.mediabox
         if page.rotate == 90:
             ctm = (0,-1,1,0, -y0,x1)
@@ -761,7 +761,7 @@ class PDFPageInterpreter(object):
     #   This method may be called recursively.
     def render_contents(self, resources, streams, ctm=MATRIX_IDENTITY):
         if 1 <= self.debug:
-            print >>sys.stderr, ('render_contents: resources=%r, streams=%r, ctm=%r' %
+            print(('render_contents: resources=%r, streams=%r, ctm=%r' %
                              (resources, streams, ctm))
         self.init_resources(resources)
         self.init_state(ctm)
@@ -788,12 +788,12 @@ class PDFPageInterpreter(object):
                     if nargs:
                         args = self.pop(nargs)
                         if 2 <= self.debug:
-                            print >>sys.stderr, 'exec: %s %r' % (name, args)
+                            print('exec: %s %r' % (name, args)
                         if len(args) == nargs:
                             func(*args)
                     else:
                         if 2 <= self.debug:
-                            print >>sys.stderr, 'exec: %s' % (name)
+                            print('exec: %s' % (name)
                         func()
                 else:
                     if STRICT:

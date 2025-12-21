@@ -71,7 +71,7 @@ def resolve_all(x):
     if isinstance(x, list):
         x = [ resolve_all(v) for v in x ]
     elif isinstance(x, dict):
-        for (k,v) in x.iteritems():
+        for (k,v) in x.items():
             x[k] = resolve_all(v)
     return x
 
@@ -83,7 +83,7 @@ def decipher_all(decipher, objid, genno, x):
     if isinstance(x, list):
         x = [ decipher_all(decipher, objid, genno, v) for v in x ]
     elif isinstance(x, dict):
-        for (k,v) in x.iteritems():
+        for (k,v) in x.items():
             x[k] = decipher_all(decipher, objid, genno, v)
     return x
 

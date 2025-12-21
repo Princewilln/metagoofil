@@ -78,15 +78,15 @@ class unzip:
         zf = zipfile.ZipFile(file)
 
         dirs = []
-        #print str(zf.namelist())
+        #print(str(zf.namelist())
 
         for name in zf.namelist():
             dirsname = name.split("/")
             ant=""
             for dirname in dirsname[:-1]:
-				dirs.append(ant+dirname)
-				#print "anadiendo:"+(ant+dirname)
-				ant=ant+dirname+"/"
+                dirs.append(ant+dirname)
+                #print("anadiendo:"+(ant+dirname)
+                ant=ant+dirname+"/"
 
         dirs.sort()
         return dirs

@@ -41,7 +41,7 @@ class ElfHeader(FieldSet):
         38: u"TRW RH-32",
         39: u"Motorola RCE",
         40: u"Advanced RISC Machines (ARM)",
-        41: u"DIGITAL Alpha",
+        41: u"DIGITA Alpha",
         42: u"Hitachi Super-H",
         43: u"SPARC Version 9",
         44: u"Siemens Tricore",
@@ -55,7 +55,7 @@ class ElfHeader(FieldSet):
         52: u"Motorola Coldfire",
         53: u"Motorola MC68HC12",
         62: u"Advanced Micro Devices x86-64",
-        75: u"DIGITAL VAX",
+        75: u"DIGITA VAX",
         36902: u"used by NetBSD/alpha; obsolete",
     }
     CLASS_NAME = {
@@ -323,13 +323,13 @@ class ElfFile(HachoirParser, RootSeekableFieldSet):
 
         self.seekByte(self["header/shoff"].value, relative=False)
 
-        for index in xrange(self["header/shnum"].value):
+        for index in range(self["header/shnum"].value):
             if self.is64bit:
                 yield SectionHeader64(self, "section_header[]")
             else:
                 yield SectionHeader32(self, "section_header[]")
         
-        for index in xrange(self["header/shnum"].value):
+        for index in range(self["header/shnum"].value):
             field = self["section_header["+str(index)+"]"]
             if field['size'].value != 0:
                 self.seekByte(field['LMA'].value, relative=False)

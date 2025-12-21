@@ -121,13 +121,13 @@ class ExtraField(FieldSet):
         0x2705: "ZipIt Macintosh v 1.3.5 and newer (w/o full filename)",
         0x334d: "Info-ZIP Macintosh (new, D. Haase Mac3 field)",
         0x4341: "Acorn/SparkFS (David Pilling)",
-        0x4453: "Windows NT security descriptor (binary ACL)",
+        0x4453: "Windows NT security descriptor (binary AC)",
         0x4704: "VM/CMS",
         0x470f: "MVS",
         0x4b46: "FWKCS MD5 (third party, see below)",
-        0x4c41: "OS/2 access control list (text ACL)",
+        0x4c41: "OS/2 access control list (text AC)",
         0x4d49: "Info-ZIP VMS (VAX or Alpha)",
-        0x5356: "AOS/VS (binary ACL)",
+        0x5356: "AOS/VS (binary AC)",
         0x5455: "extended timestamp",
         0x5855: "Info-ZIP Unix (original; also OS/2, NT, etc.)",
         0x6542: "BeOS (BeBox, PowerMac, etc.)",
@@ -363,8 +363,8 @@ class ZipFile(Parser):
     PARSER_TAGS = {
         "id": "zip",
         "category": "archive",
-        "file_ext": tuple(MIME_TYPES.itervalues()),
-        "mime": tuple(MIME_TYPES.iterkeys()),
+        "file_ext": tuple(MIME_TYPES.values()),
+        "mime": tuple(MIME_TYPES.keys()),
         "magic": (("PK\3\4", 0),),
         "subfile": "skip",
         "min_size": (4 + 26)*8, # header + file entry
@@ -376,7 +376,7 @@ class ZipFile(Parser):
             return "Invalid magic"
         try:
             file0 = self["file[0]"]
-        except HACHOIR_ERRORS, err:
+        except HACHOIR_ERRORS as err:
             return "Unable to get file #0"
         err = file0.validate()
         if err:

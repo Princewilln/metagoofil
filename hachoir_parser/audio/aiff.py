@@ -37,7 +37,7 @@ def parseID3(self):
 
 def parseComment(self):
     yield UInt16(self, "nb_comment")
-    for index in xrange(self["nb_comment"].value):
+    for index in range(self["nb_comment"].value):
         yield Comment(self, "comment[]")
 
 def parseCommon(self):

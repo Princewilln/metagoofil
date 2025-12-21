@@ -67,7 +67,7 @@ def paletteParse(parent):
     if (size % 3) != 0:
         raise ParserError("Palette have invalid size (%s), should be 3*n!" % size)
     nb_colors = size // 3
-    for index in xrange(nb_colors):
+    for index in range(nb_colors):
         yield RGB(parent, "color[]")
 
 def paletteDescription(parent):

@@ -203,7 +203,7 @@ class Export(FieldSet):
 
 def parseExport(parent, size):
     yield UInt16(parent, "count")
-    for index in xrange(parent["count"].value):
+    for index in range(parent["count"].value):
         yield Export(parent, "export[]")
 
 def parseProductInfo(parent, size):
@@ -220,7 +220,7 @@ def parseScriptLimits(parent, size):
 
 def parseSymbolClass(parent, size):
     yield UInt16(parent, "count")
-    for index in xrange(parent["count"].value):
+    for index in range(parent["count"].value):
         yield UInt16(parent, "symbol_id[]")
         yield CString(parent, "symbol_name[]")
 
@@ -365,7 +365,7 @@ class Tag(FieldSet):
         return "Tag: %s (%s)" % (self["code"].display, self["length"].display)
 
 class SwfFile(Parser):
-    VALID_VERSIONS = set(xrange(1, 10+1))
+    VALID_VERSIONS = set(range(1, 10+1))
     PARSER_TAGS = {
         "id": "swf",
         "category": "container",

@@ -54,7 +54,7 @@ class metaInfoOO:
 		
 		rnd  = str(random.randrange(0, 1001, 3))
 		zip = zipfile.ZipFile(filepath, 'r')
-		file('meta'+rnd+'.xml', 'w').write(zip.read('meta.xml'))
+		open('meta'+rnd+'.xml', 'w').write(zip.read('meta.xml'))
 		zip.close()
 
 		# done, ahora a currar con el xml
@@ -88,7 +88,7 @@ class metaInfoOO:
 		print(" description:" + str(self.description))
 		print(" subject:" + str(self.subject))
 		print(" printed by:" + str(self.printedBy))
-		print(" print date:" + str(self.printDate))
+		print(" print(date:" + str(self.printDate))
 		
 	def carga(self,datos):
 		try:

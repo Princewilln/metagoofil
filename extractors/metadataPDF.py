@@ -37,15 +37,15 @@ class metapdf:
 			caching = True
 			laparams = LAParams()
 			rsrcmgr = PDFResourceManager(caching=caching)
-			outfp = file('temppdf.txt','w')
+			outfp = open('temppdf.txt','w')
 			device = TextConverter(rsrcmgr, outfp, codec=codec, laparams=laparams)
 			fname= self.fname
-			fp = file(fname, 'rb')
+			fp = open(fname, 'rb')
 			process_pdf(rsrcmgr, device, fp, pagenos, maxpages=maxpages, password=password,caching=caching, check_extractable=True)
 			fp.close()
 			device.close()
 			outfp.close()
-			infp = file('temppdf.txt','rb')
+			infp = open('temppdf.txt','rb')
 			test=infp.read()
 			infp.close()
 			os.remove('temppdf.txt')
@@ -71,7 +71,7 @@ class metapdf:
 		#	metadata = resolve1(doc.catalog['Metadata'])
 		#	return "ok"
 		#except:
-		#	print "[x] Error in PDF extractor, Metadata catalog"
+		#	print("[x] Error in PDF extractor, Metadata catalog"
 		try:
 			for xref in doc.xrefs:
 				info_ref=xref.trailer.get('Info')

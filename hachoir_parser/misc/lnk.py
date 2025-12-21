@@ -325,7 +325,7 @@ class ExtraInfo(FieldSet):
          2: "PROGRAMS",
          3: "CONTROLS",
          4: "PRINTERS",
-         5: "PERSONAL",
+         5: "PERSONA",
          6: "FAVORITES",
          7: "STARTUP",
          8: "RECENT",
@@ -452,7 +452,7 @@ class ExtraInfo(FieldSet):
             yield UInt32(self, "history_size", "Size of the history buffer (in lines)")
             yield UInt32(self, "history_count", "Number of history buffers (each process gets one up to this limit)")
             yield Enum(UInt32(self, "history_no_dup", "Automatically eliminate duplicate lines in the history buffer?"), self.BOOL_ENUM)
-            for index in xrange(16):
+            for index in range(16):
                 yield ColorRef(self, "color[]")
 
         elif self["signature"].value == 0xA0000004:

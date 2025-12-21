@@ -20,7 +20,7 @@
    import graphs
    graph = graphs.BarGraph('hBar')
    graph.values = [234, 125, 289, 147, 190]
-   print graph.create()
+   print(graph.create()
 
  Returns HTML code
 =====================================================================================================
@@ -108,7 +108,7 @@ class BarGraph:
     __cssBAR = ''
     __cssBARBG = ''
     __cssTITLE = ''
-    __cssLABEL = ''
+    __cssLABE = ''
     __cssLABELBG = ''
     __cssLEGEND = ''
     __cssLEGENDBG = ''
@@ -132,12 +132,12 @@ class BarGraph:
         if self.titleSize: self.__cssTITLE += 'font-size:' + str(self.titleSize) + 'px;'
         if self.titleBGColor: self.__cssTITLE += 'background-color:' + self.titleBGColor + ';'
         if self.titlePadding: self.__cssTITLE += 'padding:' + str(self.titlePadding) + 'px;'
-        if self.labelColor: self.__cssLABEL += 'color:' + self.labelColor + ';'
-        if self.labelBGColor: self.__cssLABEL += 'background-color:' + self.labelBGColor + ';'
-        if self.labelBorder: self.__cssLABEL += 'border:' + self.labelBorder + ';'
-        if self.labelFont: self.__cssLABEL += 'font-family:' + self.labelFont + ';'
-        if self.labelSize: self.__cssLABEL += 'font-size:' + str(self.labelSize) + 'px;'
-        if self.labelAlign: self.__cssLABEL += 'text-align:' + self.labelAlign + ';'
+        if self.labelColor: self.__cssLABE += 'color:' + self.labelColor + ';'
+        if self.labelBGColor: self.__cssLABE += 'background-color:' + self.labelBGColor + ';'
+        if self.labelBorder: self.__cssLABE += 'border:' + self.labelBorder + ';'
+        if self.labelFont: self.__cssLABE += 'font-family:' + self.labelFont + ';'
+        if self.labelSize: self.__cssLABE += 'font-size:' + str(self.labelSize) + 'px;'
+        if self.labelAlign: self.__cssLABE += 'text-align:' + self.labelAlign + ';'
         if self.labelBGColor: self.__cssLABELBG += 'background-color:' + self.labelBGColor + ';'
         if self.legendColor: self.__cssLEGEND += 'color:' + self.legendColor + ';'
         if self.legendFont: self.__cssLEGEND += 'font-family:' + self.legendFont + ';'
@@ -407,7 +407,7 @@ class BarGraph:
                 for i in range(len(v)):
                     label = (lcnt < len(r)) and r[lcnt].strip() or str(lcnt + 1)
                     rowspan = len(v[i])
-                    graph += '<tr><td style="' + self.__cssLABEL + '"' + ((rowspan > 1) and ' rowspan=' + str(rowspan) or '') + '>'
+                    graph += '<tr><td style="' + self.__cssLABE + '"' + ((rowspan > 1) and ' rowspan=' + str(rowspan) or '') + '>'
                     graph += '&nbsp;' + label + '&nbsp;</td>'
 
                     for j in range(len(v[i])):
@@ -462,7 +462,7 @@ class BarGraph:
                 for i in range(len(v)):
                     label = (lcnt < len(r)) and r[lcnt].strip() or str(lcnt + 1)
                     colspan = len(v[i])
-                    graph += '<td style="' + self.__cssLABEL + '"' + ((colspan > 1) and ' colspan=' + str(colspan) or '') + '>'
+                    graph += '<td style="' + self.__cssLABE + '"' + ((colspan > 1) and ' colspan=' + str(colspan) or '') + '>'
                     graph += '&nbsp;' + label + '&nbsp;</td>'
                     if self.labelSpace: graph += '<td width=' + str(self.labelSpace) + '></td>'
                     lcnt += 1
@@ -481,7 +481,7 @@ class BarGraph:
                         graph += '<tr>'
 
                         if len(r):
-                            graph += '<td style="' + self.__cssLABEL + '">'
+                            graph += '<td style="' + self.__cssLABE + '">'
                             graph += '&nbsp;' + label + '&nbsp;</td>'
 
                         try: sum = v[i][1] and v[i][1] or v[-1][0]
@@ -538,5 +538,5 @@ def _number_format(val, dec):
     return dec and ('%.' + str(dec) + 'f') % val or int(round(val))
 
 if __name__ == '__main__':
-    print __doc__
+    print(__doc__)
 

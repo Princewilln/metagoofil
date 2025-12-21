@@ -13,7 +13,7 @@ class GenericTimestamp(Bits):
 
     def createRawDisplay(self):
         value = Bits.createValue(self)
-        return unicode(value)
+        return str(value)
 
     def __nonzero__(self):
         return Bits.createValue(self) != 0

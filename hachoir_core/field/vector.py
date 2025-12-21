@@ -20,7 +20,7 @@ class GenericVector(FieldSet):
     def createFields(self):
         name = self._item_name + "[]"
         parser = self._item_class
-        for index in xrange(len(self)):
+        for index in range(len(self)):
             yield parser(self, name)
 
 class UserVector(GenericVector):

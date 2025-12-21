@@ -18,12 +18,12 @@ def runProfiler(func, args=tuple(), kw={}, verbose=True, nb_func=25, sort_by=('c
             print("[+] Strip...")
         stat.strip_dirs()
         if verbose:
-            print "[+] Sort data..."
+            print("[+] Sort data...")
         stat.sort_stats(*sort_by)
         if verbose:
-            print
-            print "[+] Display statistics"
-            print
+            print()
+            print("[+] Display statistics")
+            print()
         stat.print_stats(nb_func)
         return result
     finally:

@@ -30,7 +30,7 @@ def get_widths(seq):
             r.append(v)
             if len(r) == 3:
                 (char1,char2,w) = r
-                for i in xrange(char1, char2+1):
+                for i in range(char1, char2+1):
                     widths[i] = w
                 r = []
     return widths
@@ -96,7 +96,7 @@ class Type1FontHeaderParser(PSStackParser):
             except PSEOF:
                 break
             try:
-                self._cid2unicode[cid] = name2unicode(name)
+                self._cid2unicode[cid] = name2str(name)
             except KeyError:
                 pass
         return self._cid2unicode
@@ -339,8 +339,8 @@ class CFFFont(object):
             assert 0
         else:
             raise ValueError('unsupported charset format: %r' % format)
-        #print self.code2gid
-        #print self.name2gid
+        #print(self.code2gid
+        #print(self.name2gid
         #assert 0
         return
 
@@ -424,7 +424,7 @@ class TrueTypeFont(object):
                 assert 0
         # create unicode map
         unicode_map = FileUnicodeMap()
-        for (char,gid) in char2gid.iteritems():
+        for (char,gid) in char2gid.items():
             unicode_map.add_cid2unichr(gid, char)
         return unicode_map
 
@@ -613,7 +613,7 @@ class PDFCIDFont(PDFFont):
             name = 'unknown'
         try:
             self.cmap = CMapDB.get_cmap(name)
-        except CMapDB.CMapNotFound, e:
+        except CMapDB.CMapNotFound as e:
             if STRICT:
                 raise PDFFontError(e)
             self.cmap = CMap()
@@ -642,17 +642,17 @@ class PDFCIDFont(PDFFont):
         else:
             try:
                 self.unicode_map = CMapDB.get_unicode_map(self.cidcoding, self.cmap.is_vertical())
-            except CMapDB.CMapNotFound, e:
+            except CMapDB.CMapNotFound as e:
                 pass
 
         self.vertical = self.cmap.is_vertical()
         if self.vertical:
             # writing mode: vertical
             widths = get_widths2(list_value(spec.get('W2', [])))
-            self.disps = dict( (cid,(vx,vy)) for (cid,(_,(vx,vy))) in widths.iteritems() )
+            self.disps = dict( (cid,(vx,vy)) for (cid,(_,(vx,vy))) in widths.items() )
             (vy,w) = spec.get('DW2', [880, -1000])
             self.default_disp = (None,vy)
-            widths = dict( (cid,w) for (cid,(w,_)) in widths.iteritems() )
+            widths = dict( (cid,w) for (cid,(w,_)) in widths.items() )
             default_width = w
         else:
             # writing mode: horizontal
@@ -690,10 +690,10 @@ class PDFCIDFont(PDFFont):
 # main
 def main(argv):
     for fname in argv[1:]:
-        fp = file(fname, 'rb')
+        fp = open(fname, 'rb')
         #font = TrueTypeFont(fname, fp)
         font = CFFFont(fname, fp)
-        print font
+        print(font
         fp.close()
     return
 

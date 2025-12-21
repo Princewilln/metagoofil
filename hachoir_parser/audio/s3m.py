@@ -312,13 +312,13 @@ class S3MHeader(Header):
 
     def getSubChunks(self):
         # Instruments -  no warranty that they are concatenated
-        for index in xrange(self["num_instruments"].value):
+        for index in range(self["num_instruments"].value):
             yield Chunk(S3MInstrument, "instrument[]",
                         16*self["instr_pptr/offset[%u]" % index].value,
                         S3MInstrument.static_size//8)
 
         # Patterns - size unknown but listed in their headers
-        for index in xrange(self["num_patterns"].value):
+        for index in range(self["num_patterns"].value):
             yield Chunk(S3MPattern, "pattern[]",
                         16*self["pattern_pptr/offset[%u]" % index].value, 0)
 
@@ -358,7 +358,7 @@ class PTMHeader(Header):
         # Instruments and minimal end position for last pattern
         count = self["num_instruments"].value
         addr = self.absolute_address
-        for index in xrange(count):
+        for index in range(count):
             offset = (self.static_size+index*PTMInstrument.static_size)//8
             yield Chunk(PTMInstrument, "instrument[]", offset,
                         PTMInstrument.static_size//8)
@@ -651,7 +651,7 @@ class S3MModule(Module):
 ##        max_offset = hdr._size//8
 
 ##        instr_size = Instrument._size//8
-##        for index in xrange(self["header/num_instruments"].value):
+##        for index in range(self["header/num_instruments"].value):
 ##            offset = 16*hdr["instr_pptr/offset[%u]" % index].value
 ##            max_offset = max(offset+instr_size, max_offset)
 ##            addr = self.absolute_address + 8*offset

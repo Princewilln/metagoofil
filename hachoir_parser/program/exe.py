@@ -127,7 +127,7 @@ class ExeFile(HachoirParser, RootSeekableFieldSet):
 
         # Read section headers
         sections = []
-        for index in xrange(self["pe_header/nb_section"].value):
+        for index in range(self["pe_header/nb_section"].value):
             section = SectionHeader(self, "section_hdr[]")
             yield section
             if section["phys_size"].value:

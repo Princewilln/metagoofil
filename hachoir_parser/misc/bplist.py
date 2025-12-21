@@ -229,7 +229,7 @@ class BPListObject(FieldSet):
 
     def createDisplay(self):
         if 'value' in self:
-            return unicode(self['value'].display)
+            return str(self['value'].display)
         elif self['marker_type'].value in [4,5,6]:
             return u''
         else:

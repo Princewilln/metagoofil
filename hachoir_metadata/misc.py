@@ -183,7 +183,7 @@ class OLE2_Metadata(RootMetadata):
 
         # Get value
         value = field.value
-        if isinstance(value, (str, unicode)):
+        if isinstance(value, (str, str)):
             value = normalizeString(value)
             if not value:
                 return

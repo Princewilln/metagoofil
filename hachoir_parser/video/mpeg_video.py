@@ -44,7 +44,7 @@ class FragmentGroup:
 
         # FIXME: Use smarter code to send arguments
         tags = {"class": self.parser, "args": self.args}
-        tags = tags.iteritems()
+        tags = tags.items()
         return StringInputStream(data, "<fragment group>", tags=tags)
 
 class CustomFragment(FieldSet):

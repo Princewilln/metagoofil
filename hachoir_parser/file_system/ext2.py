@@ -57,8 +57,8 @@ class Inode(FieldSet):
     inode_type_name = {
         1: "list of bad blocks",
         2: "Root directory",
-        3: "ACL inode",
-        4: "ACL inode",
+        3: "AC inode",
+        4: "AC inode",
         5: "Boot loader",
         6: "Undelete directory",
         8: "EXT3 journal"
@@ -151,8 +151,8 @@ class Inode(FieldSet):
         for index in range(15):
             yield UInt32(self, "block[]")
         yield UInt32(self, "version", "Version")
-        yield UInt32(self, "file_acl", "File ACL")
-        yield UInt32(self, "dir_acl", "Directory ACL")
+        yield UInt32(self, "file_acl", "File AC")
+        yield UInt32(self, "dir_acl", "Directory AC")
         yield UInt32(self, "faddr", "Block where the fragment of the file resides")
 
         os = self["/superblock/creator_os"].value

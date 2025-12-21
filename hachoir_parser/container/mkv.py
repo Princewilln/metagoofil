@@ -166,19 +166,19 @@ class Lace(FieldSet):
         FieldSet.__init__(self, parent, 'Lace', size=size * 8)
 
     def parseXiph(self):
-        for i in xrange(self.n_frames):
+        for i in range(self.n_frames):
             yield XiphInt(self, 'size[]')
-        for i in xrange(self.n_frames):
+        for i in range(self.n_frames):
             yield RawBytes(self, 'frame[]', self['size['+str(i)+']'].value)
         yield RawBytes(self,'frame[]', (self._size - self.current_size) / 8)
 
     def parseEBML(self):
         yield Unsigned(self, 'size')
-        for i in xrange(1, self.n_frames):
+        for i in range(1, self.n_frames):
             yield Signed(self, 'dsize[]')
         size = self['size'].value
         yield RawBytes(self, 'frame[]', size)
-        for i in xrange(self.n_frames-1):
+        for i in range(self.n_frames-1):
             size += self['dsize['+str(i)+']'].value
             yield RawBytes(self, 'frame[]', size)
         yield RawBytes(self,'frame[]', (self._size - self.current_size) / 8)
@@ -186,7 +186,7 @@ class Lace(FieldSet):
     def parseFixed(self):
         n = self.n_frames + 1
         size = self._size / 8 / n
-        for i in xrange(n):
+        for i in range(n):
             yield RawBytes(self, 'frame[]', size)
 
 class Block(FieldSet):

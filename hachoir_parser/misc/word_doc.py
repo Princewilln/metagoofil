@@ -354,13 +354,13 @@ class TableParsers(object):
             7: "LastRevBy: name of person who last revised the document",
             8: "DataDoc: filename of data document",
             9: "HeaderDoc: filename of header document",
-            10: "Criteria1: packed string used by print merge record selection",
-            11: "Criteria2: packed string used by print merge record selection",
-            12: "Criteria3: packed string used by print merge record selection",
-            13: "Criteria4: packed string used by print merge record selection",
-            14: "Criteria5: packed string used by print merge record selection",
-            15: "Criteria6: packed string used by print merge record selection",
-            16: "Criteria7: packed string used by print merge record selection",
+            10: "Criteria1: packed string used by print(merge record selection",
+            11: "Criteria2: packed string used by print(merge record selection",
+            12: "Criteria3: packed string used by print(merge record selection",
+            13: "Criteria4: packed string used by print(merge record selection",
+            14: "Criteria5: packed string used by print(merge record selection",
+            15: "Criteria6: packed string used by print(merge record selection",
+            16: "Criteria7: packed string used by print(merge record selection",
             17: "Max: maximum number of strings in string table",
         }
 
@@ -374,7 +374,7 @@ class TableParsers(object):
             extra_data_field = UInt16(self, "extra_data_len", "Size of optional extra data after each string")
             yield extra_data_field
             extra_data_len = extra_data_field.value
-            for i in xrange(self["count"].value):
+            for i in range(self["count"].value):
                 if self.name == "SttbfAssoc":
                     desc = self.SttbfAssocDESC.get(i, None)
                 else:
@@ -402,9 +402,9 @@ class TableParsers(object):
             if size is None:
                 size = chunk_parser.static_size // 8
             n = (self.size / 8 - 4) / (4 + size)
-            for i in xrange(n+1):
+            for i in range(n+1):
                 yield UInt32(self, "cp_fc[]", "CP or FC value")
-            for i in xrange(n):
+            for i in range(n):
                 yield chunk_parser(self, "obj[]")
 
 class WordTableParser(OLE2FragmentParser):

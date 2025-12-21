@@ -5,7 +5,7 @@ from hachoir_parser.container import OggFile, RealMediaFile
 from hachoir_core.i18n import _
 from hachoir_core.tools import makePrintable, timedelta2seconds, humanBitRate
 from datetime import timedelta
-from hachoir_metadata.metadata_item import QUALITY_FAST, QUALITY_NORMAL, QUALITY_BEST
+from hachoir_metadata.metadata_item import QUALITY_FAST, QUALITY_NORMA, QUALITY_BEST
 from hachoir_metadata.safe import fault_tolerant, getValue
 
 def computeComprRate(meta, size):
@@ -29,7 +29,7 @@ VORBIS_KEY_TO_ATTR = {
     "ARTIST": "artist",
     "ALBUM": "album",
     "TRACKNUMBER": "track_number",
-    "TRACKTOTAL": "track_total",
+    "TRACKTOTA": "track_total",
     "ENCODER": "producer",
     "TITLE": "title",
     "LOCATION": "location",
@@ -88,7 +88,7 @@ class OggMetadata(MultipleMetadata):
                 break
 
         # Compute duration
-        if granule_quotient and QUALITY_NORMAL <= self.quality:
+        if granule_quotient and QUALITY_NORMA <= self.quality:
             page = ogg.createLastPage()
             if page and "abs_granule_pos" in page:
                 try:
@@ -248,7 +248,7 @@ class MpegAudioMetadata(RootMetadata):
         "COM": "comment",
         "TEN": "producer",
         "TRK": "track_number",
-        "TAL": "album",
+        "TA": "album",
         "TT2": "title",
         "TYE": "creation_date",
         "TCO": "music_genre",

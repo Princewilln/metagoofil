@@ -356,7 +356,7 @@ class ID3_Chunk(FieldSet):
         "TRK": "Track number",
         "COM": "Comment",
         "TCM": "Composer",
-        "TAL": "Album",
+        "TA": "Album",
         "TYE": "Year",
         "TEN": "Encoder",
         "TCO": "Content type",
@@ -454,7 +454,7 @@ class ID3_Size(Bits):
     def createValue(self):
         data = self.parent.stream.readBytes(self.absolute_address, 4)
         # TODO: Check that bit #7 of each byte is nul: not(ord(data[i]) & 127)
-        return reduce(lambda x, y: x*128 + y, (ord(item) for item in data ))
+        return functools.reduce(lambda x, y: x*128 + y, (ord(item) for item in data ))
 
 class ID3v2(FieldSet):
     endian = NETWORK_ENDIAN

@@ -90,7 +90,7 @@ class ExeMetadata(RootMetadata):
             del values["FileDescription"]
             del values["ProductName"]
 
-        for key, value in values.iteritems():
+        for key, value in values.items():
             if key in self.KEY_TO_ATTR:
                 setattr(self, self.KEY_TO_ATTR[key], value)
             elif key not in self.SKIP_KEY:

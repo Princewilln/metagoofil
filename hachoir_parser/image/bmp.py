@@ -29,7 +29,7 @@ class ImageLine(FieldSet):
         self._size = alignValue(self._width * self._pixel.static_size, 32)
 
     def createFields(self):
-        for x in xrange(self._width):
+        for x in range(self._width):
             yield self._pixel(self, "pixel[]")
         size = self.size - self.current_size
         if size:
@@ -43,7 +43,7 @@ class ImagePixels(FieldSet):
         self._pixel = pixel_class
 
     def createFields(self):
-        for y in xrange(self._height-1, -1, -1):
+        for y in range(self._height-1, -1, -1):
             yield ImageLine(self, "line[%u]" % y, self._width, self._pixel)
         size = (self.size - self.current_size) // 8
         if size:

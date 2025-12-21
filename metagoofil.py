@@ -201,10 +201,10 @@ def doprocess(argv):
     print("----------------------------")
     for x in emails:
         print(x)
-    #print "\n[+] List of errors:"
-    #print "---------------------"
+    #print("\n[+] List of errors:"
+    #print("---------------------"
     #for x in failedfiles:
-    #   print x
+    #   print(x
 
 if __name__ == "__main__":
     try: 

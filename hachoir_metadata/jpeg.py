@@ -177,7 +177,7 @@ class JpegMetadata(RootMetadata):
                 return
             if isinstance(value, float):
                 value = (value, u"1/%g" % (1/value))
-        elif entry["type"].value in (BasicIFDEntry.TYPE_RATIONAL, BasicIFDEntry.TYPE_SIGNED_RATIONAL):
+        elif entry["type"].value in (BasicIFDEntry.TYPE_RATIONA, BasicIFDEntry.TYPE_SIGNED_RATIONA):
             value = (value, u"%.3g" % value)
 
         # Store information
@@ -251,7 +251,7 @@ class JpegMetadata(RootMetadata):
 
             # Get value
             value = field["content"].value
-            if isinstance(value, (str, unicode)):
+            if isinstance(value, (str, str)):
                 value = value.replace("\r", " ")
                 value = value.replace("\n", " ")
 

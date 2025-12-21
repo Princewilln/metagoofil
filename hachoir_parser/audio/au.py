@@ -52,12 +52,12 @@ class AuFile(Parser):
     BITS_PER_SAMPLE = createDict(CODEC_INFO, 0)
     CODEC_NAME = createDict(CODEC_INFO, 1)
 
-    VALID_NB_CHANNEL = set((1,2))   # FIXME: 4, 5, 7, 8 channels are supported?
+    VALID_NB_CHANNE = set((1,2))   # FIXME: 4, 5, 7, 8 channels are supported?
 
     def validate(self):
         if self.stream.readBytes(0, 4) != ".snd":
             return "Wrong file signature"
-        if self["channels"].value not in self.VALID_NB_CHANNEL:
+        if self["channels"].value not in self.VALID_NB_CHANNE:
             return "Invalid number of channel"
         return True
 

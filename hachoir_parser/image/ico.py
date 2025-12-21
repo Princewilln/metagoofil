@@ -110,7 +110,7 @@ class IcoFile(Parser):
         yield Enum(UInt16(self, "type", "Resource type"), self.TYPE_NAME)
         yield UInt16(self, "nb_items", "Number of items")
         items = []
-        for index in xrange(self["nb_items"].value):
+        for index in range(self["nb_items"].value):
             item = IconHeader(self, "icon_header[]")
             yield item
             items.append(item)

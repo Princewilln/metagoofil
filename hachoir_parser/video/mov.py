@@ -339,7 +339,7 @@ class DataReference(FieldSet):
         yield UInt8(self, "version", "Version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield Atom(self, "atom[]")
 
 class EditList(FieldSet):
@@ -354,7 +354,7 @@ class EditList(FieldSet):
             UInt, Int = UInt64, Int64
         else:
             raise ParserError("elst version %d not supported"%version)
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt(self, "duration[]", "Duration of this edit segment")
             yield Int(self, "time[]", "Starting time of this edit segment within the media (-1 = empty edit)")
             yield QTFloat32(self, "play_speed[]", "Playback rate (0 = dwell edit, 1 = normal playback)")
@@ -435,7 +435,7 @@ class META(FieldSet):
         # This tag has too many variant forms.
         if '/tags/' in self.path:
             yield UInt32(self, "count")
-            for i in xrange(self['count'].value):
+            for i in range(self['count'].value):
                 yield METATAG(self, "tag[]")
         elif self.stream.readBits(self.absolute_address, 32, self.endian) == 0:
             yield UInt8(self, "version")
@@ -455,7 +455,7 @@ class KeyList(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield Atom(self, "key[]")
 
 class ItemList(FieldSet):
@@ -476,7 +476,7 @@ class NeroChapters(FieldSet):
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "unknown")
         yield UInt8(self, "count", description="Number of chapters")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt64(self, "chapter_start[]")
             yield PascalString8(self, "chapter_name[]", charset='UTF-8')
 
@@ -485,7 +485,7 @@ class SampleDecodeTimeTable(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Total entries in sample time table")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt32(self, "sample_count[]", "Number of consecutive samples with this delta")
             yield UInt32(self, "sample_delta[]", "Decode time delta since last sample, in time-units")
 
@@ -494,7 +494,7 @@ class SampleCompositionTimeTable(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Total entries in sample time table")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt32(self, "sample_count[]", "Number of consecutive samples with this offset")
             yield UInt32(self, "sample_offset[]", "Difference between decode time and composition time of this sample, in time-units")
 
@@ -503,7 +503,7 @@ class ChunkOffsetTable(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Total entries in offset table")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt32(self, "chunk_offset[]")
 
 class ChunkOffsetTable64(FieldSet):
@@ -511,7 +511,7 @@ class ChunkOffsetTable64(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Total entries in offset table")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt64(self, "chunk_offset[]")
 
 class SampleEntry(FieldSet):
@@ -561,7 +561,7 @@ class SampleDescription(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Total entries in table")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield SampleEntry(self, "sample_entry[]")
 
 class SyncSampleTable(FieldSet):
@@ -569,7 +569,7 @@ class SyncSampleTable(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Number of sync samples")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt32(self, "sample_number[]")
 
 class SampleSizeTable(FieldSet):
@@ -579,7 +579,7 @@ class SampleSizeTable(FieldSet):
         yield UInt32(self, "uniform_size", description="Uniform size of each sample (0 if non-uniform)")
         yield UInt32(self, "count", description="Number of samples")
         if self['uniform_size'].value == 0:
-            for i in xrange(self['count'].value):
+            for i in range(self['count'].value):
                 yield UInt32(self, "sample_size[]")
 
 class CompactSampleSizeTable(FieldSet):
@@ -590,7 +590,7 @@ class CompactSampleSizeTable(FieldSet):
         yield UInt8(self, "field_size", "Size of each entry in this table, in bits")
         yield UInt32(self, "count", description="Number of samples")
         bitsize = self['field_size'].value
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield Bits(self, "sample_size[]", bitsize)
         if self.current_size % 8 != 0:
             yield NullBits(self, "padding[]", 8 - (self.current_size % 8))
@@ -600,7 +600,7 @@ class SampleToChunkTable(FieldSet):
         yield UInt8(self, "version")
         yield NullBits(self, "flags", 24)
         yield UInt32(self, "count", description="Number of samples")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield UInt32(self, "first_chunk[]")
             yield UInt32(self, "samples_per_chunk[]")
             yield UInt32(self, "sample_description_index[]")

@@ -64,15 +64,15 @@ class LogicalFileInfo(FieldSet):
         yield UInt32(self, "size")
         yield UInt16(self, "obj_version")
         yield UInt16(self, "nb_physical_stream")
-        for index in xrange(self["nb_physical_stream"].value):
+        for index in range(self["nb_physical_stream"].value):
             yield UInt16(self, "physical_stream[]")
-        for index in xrange(self["nb_physical_stream"].value):
+        for index in range(self["nb_physical_stream"].value):
             yield UInt16(self, "data_offset[]")
         yield UInt16(self, "nb_rule")
-        for index in xrange(self["nb_rule"].value):
+        for index in range(self["nb_rule"].value):
             yield UInt16(self, "rule[]")
         yield UInt16(self, "nb_prop")
-        for index in xrange(self["nb_prop"].value):
+        for index in range(self["nb_prop"].value):
             yield NameValueProperty(self, "prop[]")
 
 def parseMediaPropertiesHeader(self):

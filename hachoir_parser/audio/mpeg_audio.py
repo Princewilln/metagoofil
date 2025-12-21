@@ -61,7 +61,7 @@ class Frame(FieldSet):
         3: "Single channel"
     }
     # Channel mode => number of channels
-    NB_CHANNEL = {
+    NB_CHANNE = {
         0: 2,
         1: 2,
         2: 2,
@@ -160,7 +160,7 @@ class Frame(FieldSet):
             return (frame_size + padding) * 4
 
     def getNbChannel(self):
-        return self.NB_CHANNEL[ self["channel_mode"].value ]
+        return self.NB_CHANNE[ self["channel_mode"].value ]
 
     def createDescription(self):
         info = ["layer %s" % self["layer"].display]
@@ -275,8 +275,8 @@ def createMpegAudioMagic():
     # MPEG frame magic
     # TODO: Use longer magic: 32 bits instead of 16 bits
     SYNC_BITS = 2047
-    for version in Frame.VERSION_NAME.iterkeys():
-        for layer in Frame.LAYER_NAME.iterkeys():
+    for version in Frame.VERSION_NAME.keys():
+        for layer in Frame.LAYER_NAME.keys():
             for crc16 in (0, 1):
                 magic = (SYNC_BITS << 5) | (version << 3) | (layer << 1) | crc16
                 magic = long2raw(magic, BIG_ENDIAN, 2)
@@ -304,7 +304,7 @@ class MpegAudioFile(Parser):
             return False
 
         # Validate first 5 frames
-        for index in xrange(5):
+        for index in range(5):
             try:
                 frame = self["frames/frame[%u]" % index]
             except MissingField:

@@ -99,7 +99,7 @@ class FragmentGroup:
         # FIXME: Use smarter code to send arguments
         self.args["ole2"] = self.items[0].root
         tags = {"class": self.parser, "args": self.args}
-        tags = tags.iteritems()
+        tags = tags.items()
         return StringInputStream(data, "<fragment group>", tags=tags)
 
 class CustomFragment(FieldSet):
@@ -539,7 +539,7 @@ class ExcelWorkbook(OLE2FragmentParser):
                 0x09c:"FNGROUPCOUNT",
                 0x09d:"AUTOFILTERINFO",
                 0x09e:"AUTOFILTER",
-                0x0a0:"SCL",
+                0x0a0:"SC",
                 0x0a1:"SETUP",
                 0x0a4:"TOOLBARVER",	# Undocumented 
                 0x0a9:"COORDLIST",
@@ -578,7 +578,7 @@ class ExcelWorkbook(OLE2FragmentParser):
                 0x0cd:"SXSTRING",
                 0x0ce:"SXDTR",	# guessed 
                 0x0cf:"SXNIL",	# guessed 
-                0x0d0:"SXTBL",
+                0x0d0:"SXTB",
                 0x0d1:"SXTBRGIITM",
                 0x0d2:"SXTBPG",
                 0x0d3:"OBPROJ",
@@ -637,7 +637,7 @@ class ExcelWorkbook(OLE2FragmentParser):
                 0x1af:"PROT4REV",
                 0x1b0:"CONDFMT",
                 0x1b1:"CF",
-                0x1b2:"DVAL",
+                0x1b2:"DVA",
                 0x1b5:"DCONBIN",
                 0x1b6:"TXO",
                 0x1b7:"REFRESHALL",
@@ -756,7 +756,7 @@ class ThumbsCatalog(OLE2FragmentParser):
         yield UInt32(self, "count")
         yield UInt32(self, "unknown[]")
         yield UInt32(self, "unknown[]")
-        for i in xrange(self['count'].value):
+        for i in range(self['count'].value):
             yield ThumbsCatalog.ThumbsEntry(self, "entry[]")
 
 PROPERTY_NAME = {

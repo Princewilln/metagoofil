@@ -72,11 +72,11 @@ EFI_FV_FILETYPE = {
     EFI_FV_FILETYPE_FIRMWARE_VOLUME_IMAGE: "Firmware volume image",
     EFI_FV_FILETYPE_FFS_PAD: "Pad File For FFS",
 }
-for x in xrange(0xc0, 0xe0):
+for x in range(0xc0, 0xe0):
     EFI_FV_FILETYPE[x] = "OEM File"
-for x in xrange(0xe0, 0xf0):
+for x in range(0xe0, 0xf0):
     EFI_FV_FILETYPE[x] = "Debug/Test File"
-for x in xrange(0xf1, 0x100):
+for x in range(0xf1, 0x100):
     EFI_FV_FILETYPE[x] = "Firmware File System Specific File"
 
 
@@ -213,7 +213,7 @@ class FirmwareVolume(FieldSet):
             yield File(self, "file[]")
 
     def createDescription(self):
-        return "Firmware Volume containing %d file(s)" % len(self.array("file"))
+        return "Firmware Volume containing %d open(s)" % len(self.array("file"))
 
 
 class PIFVFile(Parser):

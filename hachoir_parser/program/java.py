@@ -48,7 +48,7 @@ TODO/FIXME:
  * Add support of formats other than 46.0 (45.3 seems to already be ok, but
    there are things to add for later formats).
  * Make parsing robust: currently, the parser will die on asserts as soon as
-   something seems wrong.  It should rather be tolerant, print errors/warnings,
+   something seems wrong.  It should rather be tolerant, print(errors/warnings,
    and try its best to continue.  Check how error-handling is done in other
    parsers.
  * Gettextize the whole thing.
@@ -427,8 +427,8 @@ class JavaBytecode(FieldSet):
 0x06: ("iconst_3", OpcodeNoArgs, "loads the int value 3 onto the stack. Stack: -> 3"),
 0x07: ("iconst_4", OpcodeNoArgs, "loads the int value 4 onto the stack. Stack: -> 4"),
 0x08: ("iconst_5", OpcodeNoArgs, "loads the int value 5 onto the stack. Stack: -> 5"),
-0x09: ("lconst_0", OpcodeNoArgs, "pushes the long 0 onto the stack. Stack: -> 0L"),
-0x0a: ("lconst_1", OpcodeNoArgs, "pushes the long 1 onto the stack. Stack: -> 1L"),
+0x09: ("lconst_0", OpcodeNoArgs, "pushes the long 0 onto the stack. Stack: -> 0"),
+0x0a: ("lconst_1", OpcodeNoArgs, "pushes the long 1 onto the stack. Stack: -> 1"),
 0x0b: ("fconst_0", OpcodeNoArgs, "pushes '0.0f' onto the stack. Stack: -> 0.0f"),
 0x0c: ("fconst_1", OpcodeNoArgs, "pushes '1.0f' onto the stack. Stack: -> 1.0f"),
 0x0d: ("fconst_2", OpcodeNoArgs, "pushes '2.0f' onto the stack. Stack: -> 2.0f"),

@@ -284,7 +284,7 @@ class Body(FieldSet):
 
         offsets.append(self["/cross_ref_table"].absolute_address//8)
         offsets.sort()
-        for index in xrange(len(offsets)-1):
+        for index in range(len(offsets)-1):
             yield Catalog(self, "object[]", size=offsets[index+1]-offsets[index])
 
 class Entry(FieldSet):

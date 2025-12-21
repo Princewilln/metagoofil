@@ -47,7 +47,7 @@ class Lacing(FieldSet):
 def parseVorbisComment(parent):
     yield PascalString32(parent, 'vendor', charset="UTF-8")
     yield UInt32(parent, 'count')
-    for index in xrange(parent["count"].value):
+    for index in range(parent["count"].value):
         yield PascalString32(parent, 'metadata[]', charset="UTF-8")
     if parent.current_size != parent.size:
         yield UInt8(parent, "framing_flag")
@@ -266,7 +266,7 @@ class OggFile(Parser):
         if self.stream.readBytes(0, len(magic)) != magic:
             return "Invalid magic string"
         # Validate first 3 pages
-        for index in xrange(3):
+        for index in range(3):
             try:
                 page = self[index]
             except MissingField:

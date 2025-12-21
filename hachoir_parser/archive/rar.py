@@ -151,7 +151,7 @@ class ExtTime(FieldSet):
     def createFields(self):
         yield textHandler(UInt16(self, "time_flags", "Flags for extended time"), hexadecimal)
         flags = self["time_flags"].value
-        for index in xrange(4):
+        for index in range(4):
             rmode = flags >> ((3-index)*4)
             if rmode & 8:
                 if index:

@@ -242,7 +242,7 @@ class BLP2File(Parser):
 
         offsets = self.array("mipmap_offset")
         sizes = self.array("mipmap_size")
-        for i in xrange(16):
+        for i in range(16):
             if not offsets[i].value or not sizes[i].value:
                 continue
             padding = self.seekByte(offsets[i].value)

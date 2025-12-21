@@ -254,7 +254,7 @@ class InputStream(Logger):
             if found >= 0:
                 return start_address + (found - len(buffer)) * 8
 
-    def file(self):
+    def open(self):
         return FileFromInputStream(self)
 
 
@@ -348,7 +348,7 @@ class InputPipe(object):
 
     def read(self, size):
         end = self.address + size
-        for i in xrange(len(self.buffers), (end >> self.buffer_size) + 1):
+        for i in range(len(self.buffers), (end >> self.buffer_size) + 1):
             data = self._input.read(1 << self.buffer_size)
             if len(data) < 1 << self.buffer_size:
                 self.size = (len(self.buffers) << self.buffer_size) + len(data)
@@ -360,7 +360,7 @@ class InputPipe(object):
             self._append(data)
         block, offset = divmod(self.address, 1 << self.buffer_size)
         data = ''.join(self._get(index)
-                for index in xrange(block, (end - 1 >> self.buffer_size) + 1)
+                for index in range(block, (end - 1 >> self.buffer_size) + 1)
             )[offset:offset+size]
         self._flush()
         self.address += len(data)
@@ -377,12 +377,12 @@ class InputIOStream(InputStream):
             try:
                 input.seek(0, 2)
                 size = input.tell() * 8
-            except IOError, err:
+            except IOError as err:
                 if err.errno == ESPIPE:
                     input = InputPipe(input, self._setSize)
                 else:
                     charset = getTerminalCharset()
-                    errmsg = unicode(str(err), charset)
+                    errmsg = str(str(err), charset)
                     source = args.get("source", "<inputio:%r>" % input)
                     raise InputStreamError(_("Unable to get size of %s: %s") % (source, errmsg))
         self._input = input
@@ -409,14 +409,14 @@ class InputIOStream(InputStream):
             raise ReadStreamError(8 * size, 8 * address, 8 * got)
         return shift, data, missing
 
-    def file(self):
+    def open(self):
         if hasattr(self._input, "fileno"):
             from os import dup, fdopen
             new_fd = dup(self._input.fileno())
             new_file = fdopen(new_fd, "r")
             new_file.seek(0)
             return new_file
-        return InputStream.file(self)
+        return InputStream.open(self)
 
 
 class StringInputStream(InputStream):

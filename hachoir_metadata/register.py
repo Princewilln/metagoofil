@@ -15,14 +15,14 @@ from hachoir_metadata.metadata_item import Data
 
 MIN_SAMPLE_RATE = 1000              # 1 kHz
 MAX_SAMPLE_RATE = 192000            # 192 kHz
-MAX_NB_CHANNEL = 8                  # 8 channels
+MAX_NB_CHANNE = 8                  # 8 channels
 MAX_WIDTH = 20000                   # 20 000 pixels
 MAX_BIT_RATE = 500 * 1024 * 1024    # 500 Mbit/s
 MAX_HEIGHT = MAX_WIDTH
 MAX_DPI_WIDTH = 10000
 MAX_DPI_HEIGHT = MAX_DPI_WIDTH
 MAX_NB_COLOR = 2 ** 24              # 16 million of color
-MAX_BITS_PER_PIXEL = 256            # 256 bits/pixel
+MAX_BITS_PER_PIXE = 256            # 256 bits/pixel
 MAX_FRAME_RATE = 150                # 150 frame/sec
 MAX_NB_PAGE = 20000
 MAX_COMPR_RATE = 1000.0
@@ -55,12 +55,12 @@ def registerAllItems(meta):
 
     meta.register(Data("width", 301, _("Image width"), filter=NumberFilter(1, MAX_WIDTH), type=(int, long), text_handler=humanPixelSize))
     meta.register(Data("height", 302, _("Image height"), filter=NumberFilter(1, MAX_HEIGHT), type=(int, long), text_handler=humanPixelSize))
-    meta.register(Data("nb_channel", 303, _("Channel"), text_handler=humanAudioChannel, filter=NumberFilter(1, MAX_NB_CHANNEL), type=(int, long)))
+    meta.register(Data("nb_channel", 303, _("Channel"), text_handler=humanAudioChannel, filter=NumberFilter(1, MAX_NB_CHANNE), type=(int, long)))
     meta.register(Data("sample_rate", 304, _("Sample rate"), text_handler=humanFrequency, filter=NumberFilter(MIN_SAMPLE_RATE, MAX_SAMPLE_RATE), type=(int, long, float)))
     meta.register(Data("bits_per_sample", 305, _("Bits/sample"), text_handler=humanBitSize, filter=NumberFilter(1, 64), type=(int, long)))
     meta.register(Data("image_orientation", 306, _("Image orientation")))
     meta.register(Data("nb_colors", 307, _("Number of colors"), filter=NumberFilter(1, MAX_NB_COLOR), type=(int, long)))
-    meta.register(Data("bits_per_pixel", 308, _("Bits/pixel"), filter=NumberFilter(1, MAX_BITS_PER_PIXEL), type=(int, long)))
+    meta.register(Data("bits_per_pixel", 308, _("Bits/pixel"), filter=NumberFilter(1, MAX_BITS_PER_PIXE), type=(int, long)))
     meta.register(Data("filename", 309, _("File name"), type=unicode))
     meta.register(Data("file_size", 310, _("File size"), text_handler=humanFilesize, type=(int, long)))
     meta.register(Data("pixel_format", 311, _("Pixel format")))

@@ -52,19 +52,19 @@ class IFDTag(UInt16):
 class BasicIFDEntry(FieldSet):
     TYPE_BYTE = 0
     TYPE_UNDEFINED = 7
-    TYPE_RATIONAL = 5
-    TYPE_SIGNED_RATIONAL = 10
+    TYPE_RATIONA = 5
+    TYPE_SIGNED_RATIONA = 10
     TYPE_INFO = {
          1: (UInt8, "BYTE (8 bits)"),
          2: (ASCIIString, "ASCII (8 bits)"),
          3: (UInt16, "SHORT (16 bits)"),
          4: (UInt32, "LONG (32 bits)"),
-         5: (RationalUInt32, "RATIONAL (2x LONG, 64 bits)"),
+         5: (RationalUInt32, "RATIONA (2x LONG, 64 bits)"),
          6: (Int8, "SBYTE (8 bits)"),
          7: (Bytes, "UNDEFINED (8 bits)"),
          8: (Int16, "SSHORT (16 bits)"),
          9: (Int32, "SLONG (32 bits)"),
-        10: (RationalInt32, "SRATIONAL (2x SLONG, 64 bits)"),
+        10: (RationalInt32, "SRATIONA (2x SLONG, 64 bits)"),
         11: (Float32, "FLOAT (32 bits)"),
         12: (Float64, "DOUBLE (64 bits)"),
     }
@@ -97,7 +97,7 @@ class BasicIFDEntry(FieldSet):
             else:
                 if count > 1:
                     name += "[]"
-                for i in xrange(count):
+                for i in range(count):
                     yield self.value_cls(self, name)
             if totalsize < 32:
                 yield NullBits(self, "padding", 32-totalsize)
@@ -322,10 +322,10 @@ class IFD(SeekableFieldSet):
         count = self["count"].value
         if count == 0:
             raise ParserError("IFDs cannot be empty.")
-        for i in xrange(count):
+        for i in range(count):
             yield self.EntryClass(self, "entry[]")
         yield UInt32(self, "next", "Offset to next IFD")
-        for i in xrange(count):
+        for i in range(count):
             entry = self['entry[%d]'%i]
             if 'offset' not in entry:
                 continue
@@ -337,7 +337,7 @@ class IFD(SeekableFieldSet):
             else:
                 if count > 1:
                     name += "[]"
-                for i in xrange(count):
+                for i in range(count):
                     yield entry.value_cls(self, name)
 
     def getEntryValues(self, entry):

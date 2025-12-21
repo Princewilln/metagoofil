@@ -89,8 +89,8 @@ class Field(Logger):
                 if isinstance(self._description, str):
                     self._description = makePrintable(
                         self._description, "ISO-8859-1", to_unicode=True)
-            except HACHOIR_ERRORS, err:
-                self.error("Error getting description: " + unicode(err))
+            except HACHOIR_ERRORS as err:
+                self.error("Error getting description: " + str(err))
                 self._description = ""
         return self._description
     description = property(_getDescription,
@@ -111,8 +111,8 @@ class Field(Logger):
     def _getValue(self):
         try:
             value = self.createValue()
-        except HACHOIR_ERRORS, err:
-            self.error(_("Unable to create value: %s") % unicode(err))
+        except HACHOIR_ERRORS as err:
+            self.error(_("Unable to create value: %s") % str(err))
             value = None
         self._getValue = lambda: value
         return value
@@ -123,12 +123,12 @@ class Field(Logger):
     parent = property(_getParent, doc="Parent of this field")
 
     def createDisplay(self):
-        return unicode(self.value)
+        return str(self.value)
     def _getDisplay(self):
         if not hasattr(self, "_Field__display"):
             try:
                 self.__display = self.createDisplay()
-            except HACHOIR_ERRORS, err:
+            except HACHOIR_ERRORS as err:
                 self.error("Unable to create display: %s" % err)
                 self.__display = u""
         return self.__display
@@ -140,12 +140,12 @@ class Field(Logger):
         if isinstance(value, str):
             return makePrintable(value, "ASCII", to_unicode=True)
         else:
-            return unicode(value)
+            return str(value)
     def _getRawDisplay(self):
         if not hasattr(self, "_Field__raw_display"):
             try:
                 self.__raw_display = self.createRawDisplay()
-            except HACHOIR_ERRORS, err:
+            except HACHOIR_ERRORS as err:
                 self.error("Unable to create raw display: %s" % err)
                 self.__raw_display = u""
         return self.__raw_display
@@ -199,7 +199,7 @@ class Field(Logger):
         if name.strip("."):
             return None
         field = self
-        for index in xrange(1, len(name)):
+        for index in range(1, len(name)):
             field = field._parent
             if field is None:
                 break

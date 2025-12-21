@@ -150,7 +150,7 @@ def recoveryHeader(self):
     # size_blocks blocks of size size_blocks follow
     # The ultimate data is the xor data of all those blocks
     size = self["size_blocks"].value
-    for index in xrange(self["num_blocks"].value):
+    for index in range(self["num_blocks"].value):
         yield RawBytes(self, "data[]", size, "Recovery block %i" % index)
     yield RawBytes(self, "xor_data", size, "The XOR value of the above data blocks")
 

@@ -64,7 +64,7 @@ class PRCFile(Parser):
         lens = []
         firstOne = True
         poff = 0
-        for index in xrange(self["header/num_records"].value):
+        for index in range(self["header/num_records"].value):
             r = ResourceHeader(self, "res_header[]")
             if firstOne:
                 firstOne = False

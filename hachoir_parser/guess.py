@@ -68,7 +68,7 @@ class QueryParser(object):
                 key = tag[0]
                 byname = self.db.bytag.get(key,{})
                 if tag[1] is None:
-                    values = byname.itervalues()
+                    values = byname.values()
                 else:
                     values = byname.get(tag[1],()),
                 if key == "id" and values:

@@ -45,7 +45,7 @@ class FragmentGroup:
         # FIXME: Use smarter code to send arguments
         self.args["startbits"] = self.items[0].parent["lzw_min_code_size"].value
         tags = {"class": self.parser, "args": self.args}
-        tags = tags.iteritems()
+        tags = tags.items()
         return StringInputStream(data, "<fragment group>", tags=tags)
 
 class CustomFragment(FieldSet):

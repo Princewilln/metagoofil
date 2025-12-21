@@ -21,7 +21,7 @@ The following data were extracted from the AFM files:
 # with or without modification, provided that all copyright notices
 # are retained; that the AFM files are not distributed without this
 # file; that all modifications to this file or any of the AFM files
-# are prominently noted in the modified file(s); and that this
+# are prominently noted in the modified open(s); and that this
 # paragraph is not modified. Adobe Systems has no responsibility or
 # obligation to support the use of the AFM files.
 #

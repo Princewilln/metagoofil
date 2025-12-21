@@ -42,8 +42,8 @@ BRUSH_STYLE = {
 HATCH_STYLE = {
     0: u"Horizontal",      # -----
     1: u"Vertical",        # |||||
-    2: u"FDIAGONAL",       # \\\\\
-    3: u"BDIAGONAL",       # /////
+    2: u"FDIAGONA",       # \\\\\
+    3: u"BDIAGONA",       # /////
     4: u"Cross",           # +++++
     5: u"Diagonal cross",  # xxxxx
 }
@@ -114,7 +114,7 @@ class Point(FieldSet):
 
 def parsePolygon(parser):
     yield UInt16(parser, "count")
-    for index in xrange(parser["count"].value):
+    for index in range(parser["count"].value):
         yield Point(parser, "point[]")
 
 META = {
@@ -164,7 +164,7 @@ META = {
     0x0418: ("ELLIPSE", u"Draw an ellipse", None),
     0x0419: ("FLOODFILL", u"Flood fill", None),
     0x041B: ("RECTANGLE", u"Draw a rectangle", None),
-    0x041F: ("SETPIXEL", u"Set pixel", None),
+    0x041F: ("SETPIXE", u"Set pixel", None),
     0x0429: ("FRAMEREGION", u"Fram region", None),
     0x0521: ("TEXTOUT", u"Draw text", None),
     0x0538: ("POLYPOLYGON", u"Draw multiple polygons", None),
@@ -230,7 +230,7 @@ class Point16(FieldSet):
 def parsePoint16array(parser):
     yield RECT32(parser, "bounds")
     yield UInt32(parser, "count")
-    for index in xrange(parser["count"].value):
+    for index in range(parser["count"].value):
         yield Point16(parser, "point[]")
 
 def parseGDIComment(parser):
@@ -254,7 +254,7 @@ def parseExtCreatePen(parser):
     yield RGBA(parser, "color")
     yield UInt32(parser, "hatch")
     yield UInt32(parser, "nb_style")
-    for index in xrange(parser["nb_style"].value):
+    for index in range(parser["nb_style"].value):
         yield UInt32(parser, "style")
 
 EMF_META = {
@@ -536,7 +536,7 @@ class WMF_File(Parser):
                 return "Invalid number of parameters"
 
         # Check first functions
-        for index in xrange(5):
+        for index in range(5):
             try:
                 func = self["func[%u]" % index]
             except MissingField:
