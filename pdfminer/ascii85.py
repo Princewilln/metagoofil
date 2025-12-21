@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """ Python implementation of ASCII85/ASCIIHex decoder (Adobe version).
 

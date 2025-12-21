@@ -1,7 +1,10 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 try:
     from io import StringIO, BytesIO
+except ImportError:
+    from StringIO import StringIO
+    from io import BytesIO
 
 
 ##  LZWDecoder
@@ -91,7 +94,7 @@ def lzwdecode(data):
     >>> lzwdecode('\x80\x0b\x60\x50\x22\x0c\x0c\x85\x01')
     '\x2d\x2d\x2d\x2d\x2d\x41\x2d\x2d\x2d\x42'
     """
-    fp = StringIO(data)
+    fp = BytesIO(data) if isinstance(data, bytes) else StringIO(data)
     return ''.join(LZWDecoder(fp).run())
 
 if __name__ == '__main__':

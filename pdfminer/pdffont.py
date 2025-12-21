@@ -1,8 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import struct
 try:
     from io import StringIO, BytesIO
+except ImportError:
+    from StringIO import StringIO
+    from io import BytesIO
 from cmapdb import CMapDB, CMapParser, FileUnicodeMap, CMap
 from encodingdb import EncodingDB, name2unicode
 from psparser import PSStackParser
@@ -117,7 +120,7 @@ class Type1FontHeaderParser(PSStackParser):
 NIBBLES = ('0','1','2','3','4','5','6','7','8','9','.','e','e-',None,'-')
 def getdict(data):
     d = {}
-    fp = StringIO(data)
+    fp = BytesIO(data) if isinstance(data, bytes) else StringIO(data)
     stack = []
     while 1:
         c = fp.read(1)
@@ -556,7 +559,7 @@ class PDFType1Font(PDFSimpleFont):
             self.fontfile = stream_value(descriptor.get('FontFile'))
             length1 = int_value(self.fontfile['Length1'])
             data = self.fontfile.get_data()[:length1]
-            parser = Type1FontHeaderParser(StringIO(data))
+            parser = Type1FontHeaderParser(BytesIO(data) if isinstance(data, bytes) else StringIO(data))
             self.cid2unicode = parser.get_encoding()
         return
 
@@ -626,13 +629,15 @@ class PDFCIDFont(PDFFont):
         ttf = None
         if 'FontFile2' in descriptor:
             self.fontfile = stream_value(descriptor.get('FontFile2'))
+            data = self.fontfile.get_data()
             ttf = TrueTypeFont(self.basefont,
-                               StringIO(self.fontfile.get_data()))
+                               BytesIO(data) if isinstance(data, bytes) else StringIO(data))
         self.unicode_map = None
         if 'ToUnicode' in spec:
             strm = stream_value(spec['ToUnicode'])
             self.unicode_map = FileUnicodeMap()
-            CMapParser(self.unicode_map, StringIO(strm.get_data())).run()
+            data = strm.get_data()
+            CMapParser(self.unicode_map, BytesIO(data) if isinstance(data, bytes) else StringIO(data)).run()
         elif self.cidcoding == 'Adobe-Identity':
             if ttf:
                 try:

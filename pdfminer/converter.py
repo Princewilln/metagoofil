@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys, os.path
 from pdfdevice import PDFDevice, PDFTextDevice
 from pdffont import PDFUnicodeNotDefined
@@ -176,8 +176,10 @@ class TextConverter(PDFConverter):
         return
 
     def write_text(self, text):
-        self.outfp.write(text.encode(self.codec, 'ignore'))
-        #self.outfp = (text.encode(self.codec,'ignore'))
+        # Convert text to string if needed, then write
+        if not isinstance(text, str):
+            text = str(text)
+        self.outfp.write(text)
         return
 
     def receive_layout(self, ltpage):

@@ -1,8 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import re
 try:
     from io import StringIO, BytesIO
+except ImportError:
+    from StringIO import StringIO
+    from io import BytesIO
 from cmapdb import CMapDB, CMap
 from psparser import PSException, PSTypeError, PSEOF
 from psparser import PSKeyword, literal_name, keyword_name
@@ -215,7 +218,8 @@ class PDFContentParser(PSStackParser):
                 self.istream += 1
             else:
                 raise PSEOF('Unexpected EOF, file truncated?')
-            self.fp = StringIO(strm.get_data())
+            data = strm.get_data()
+            self.fp = BytesIO(data) if isinstance(data, bytes) else StringIO(data)
         return
 
     def seek(self, pos):

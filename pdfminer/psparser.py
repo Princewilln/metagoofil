@@ -1,6 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import re
+from io import StringIO, BytesIO
 from utils import choplist
 
 STRICT = 0

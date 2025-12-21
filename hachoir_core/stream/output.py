@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import BytesIO
 from hachoir_core.endian import BIG_ENDIAN, LITTLE_ENDIAN
 from hachoir_core.bits import long2raw
 from hachoir_core.stream import StreamError
@@ -158,7 +158,7 @@ def StringOutputStream():
     """
     Create an output stream into a string.
     """
-    data = StringIO()
+    data = BytesIO()
     return OutputStream(data)
 
 def FileOutputStream(filename, real_filename=None):

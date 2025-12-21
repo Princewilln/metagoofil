@@ -45,7 +45,7 @@ class metapdf:
 			fp.close()
 			device.close()
 			outfp.close()
-			infp = open('temppdf.txt','rb')
+			infp = open('temppdf.txt','r')
 			test=infp.read()
 			infp.close()
 			os.remove('temppdf.txt')

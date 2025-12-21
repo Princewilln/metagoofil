@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 import sys
 import re
 import struct
@@ -8,6 +8,9 @@ except ImportError:
     import md5
 try:
     from io import StringIO, BytesIO
+except ImportError:
+    from StringIO import StringIO
+    from io import BytesIO
 from psparser import PSStackParser
 from psparser import PSSyntaxError, PSEOF
 from psparser import literal_name
@@ -766,7 +769,11 @@ class PDFStreamParser(PDFParser):
     """
 
     def __init__(self, data):
-        PDFParser.__init__(self, StringIO(data))
+        # In Python 3, use BytesIO for bytes data
+        if isinstance(data, bytes):
+            PDFParser.__init__(self, BytesIO(data))
+        else:
+            PDFParser.__init__(self, StringIO(data))
         return
 
     def flush(self):
