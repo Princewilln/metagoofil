@@ -42,17 +42,21 @@ class LZWDecoder(object):
                 bits -= r
                 x = self.fp.read(1)
                 if not x: raise EOFError
-                self.buff = ord(x)
+                # Handle both bytes and str (Python 2/3 compatibility)
+                if isinstance(x, bytes):
+                    self.buff = x[0]  # In Python 3, bytes indexing returns int
+                else:
+                    self.buff = ord(x)  # In Python 2, str needs ord()
                 self.bpos = 0
         return v
 
     def feed(self, code):
-        x = ''
+        x = b''
         if code == 256:
-            self.table = [ chr(c) for c in range(256) ] # 0-255
+            self.table = [ bytes([c]) for c in range(256) ] # 0-255
             self.table.append(None) # 256
             self.table.append(None) # 257
-            self.prevbuf = ''
+            self.prevbuf = b''
             self.nbits = 9
         elif code == 257:
             pass
@@ -61,9 +65,9 @@ class LZWDecoder(object):
         else:
             if code < len(self.table):
                 x = self.table[code]
-                self.table.append(self.prevbuf+x[0])
+                self.table.append(self.prevbuf+x[:1])
             else:
-                self.table.append(self.prevbuf+self.prevbuf[0])
+                self.table.append(self.prevbuf+self.prevbuf[:1])
                 x = self.table[code]
             l = len(self.table)
             if l == 511:
@@ -84,7 +88,7 @@ class LZWDecoder(object):
             x = self.feed(code)
             yield x
             if self.debug:
-                print(('nbits=%d, code=%d, output=%r, table=%r' %
+                print(('nbits=%d, code=%d, output=%r, table=%r' %))
                                      (self.nbits, code, x, self.table[258:]))
         return
 
@@ -95,7 +99,8 @@ def lzwdecode(data):
     '\x2d\x2d\x2d\x2d\x2d\x41\x2d\x2d\x2d\x42'
     """
     fp = BytesIO(data) if isinstance(data, bytes) else StringIO(data)
-    return ''.join(LZWDecoder(fp).run())
+    result = b''.join(x for x in LZWDecoder(fp).run() if x is not None)
+    return result
 
 if __name__ == '__main__':
     import doctest

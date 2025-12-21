@@ -108,7 +108,7 @@ class PDFLayoutAnalyzer(PDFTextDevice):
 
     def handle_undefined_char(self, font, cid):
         if self.debug:
-            print('undefined: %r, %r' % (font, cid)
+            print('undefined: %r, %r' % (font, cid))
         return '(cid:%d)' % cid
 
     def receive_layout(self, ltpage):
@@ -176,10 +176,22 @@ class TextConverter(PDFConverter):
         return
 
     def write_text(self, text):
-        # Convert text to string if needed, then write
-        if not isinstance(text, str):
+        # In Python 3, ensure we write strings not bytes
+        if isinstance(text, bytes):
+            try:
+                text = text.decode(self.codec, 'ignore')
+            except (AttributeError, UnicodeDecodeError):
+                text = str(text)
+        elif not isinstance(text, str):
             text = str(text)
-        self.outfp.write(text)
+        try:
+            self.outfp.write(text)
+        except TypeError as e:
+            # If write fails with TypeError, might be binary mode file
+            if isinstance(text, str):
+                self.outfp.write(text.encode(self.codec, 'ignore'))
+            else:
+                self.outfp.write(text)
         return
 
     def receive_layout(self, ltpage):

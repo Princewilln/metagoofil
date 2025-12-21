@@ -58,7 +58,7 @@ class CMap(object):
 
     def decode(self, code):
         if self.debug:
-            print('decode: %r, %r' % (self, code)
+            print('decode: %r, %r' % (self, code))
         d = self.code2cid
         for c in code:
             c = ord(c)
@@ -116,7 +116,7 @@ class UnicodeMap(object):
 
     def get_unichr(self, cid):
         if self.debug:
-            print('get_unichr: %r, %r' % (self, cid)
+            print('get_unichr: %r, %r' % (self, cid))
         return self.cid2unichr[cid]
 
     def dump(self, out=sys.stdout):
@@ -239,7 +239,7 @@ class CMapDB(object):
     def _load_data(klass, name):
         filename = '%s.pickle.gz' % name
         if klass.debug:
-            print('loading:', name
+            print('loading:', name)
         default_path = os.environ.get('CMAP_PATH', '/usr/share/pdfminer/')
         for directory in (os.path.dirname(cmap.__file__), default_path):
             path = os.path.join(directory, filename)

@@ -37,7 +37,7 @@ class metapdf:
 			caching = True
 			laparams = LAParams()
 			rsrcmgr = PDFResourceManager(caching=caching)
-			outfp = open('temppdf.txt','w')
+			outfp = open('temppdf.txt','w', encoding='utf-8')
 			device = TextConverter(rsrcmgr, outfp, codec=codec, laparams=laparams)
 			fname= self.fname
 			fp = open(fname, 'rb')
@@ -45,7 +45,7 @@ class metapdf:
 			fp.close()
 			device.close()
 			outfp.close()
-			infp = open('temppdf.txt','r')
+			infp = open('temppdf.txt','r', encoding='utf-8')
 			test=infp.read()
 			infp.close()
 			os.remove('temppdf.txt')

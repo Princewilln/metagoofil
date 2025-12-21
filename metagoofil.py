@@ -211,5 +211,8 @@ if __name__ == "__main__":
         doprocess(sys.argv[1:])
     except KeyboardInterrupt:
         print("Process interrupted by user.")
-    except:
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
         sys.exit()
+

@@ -1,6 +1,7 @@
 from hachoir_core.endian import BIG_ENDIAN, LITTLE_ENDIAN
 from hachoir_core.field import RawBytes, RootSeekableFieldSet, ParserError
 from hachoir_parser import HachoirParser
+import binascii
 
 class OLE2FragmentParser(HachoirParser,RootSeekableFieldSet):
     tags = {
@@ -24,7 +25,8 @@ class OLE2FragmentParser(HachoirParser,RootSeekableFieldSet):
     def validate(self):
         if self.ENDIAN_CHECK:
             if self["endian"].value not in ["\xFF\xFE", "\xFE\xFF"]:
-                return "Unknown endian value %s"%self["endian"].value.encode('hex')
+                endian_hex = binascii.hexlify(self["endian"].value.encode() if isinstance(self["endian"].value, str) else self["endian"].value).decode('ascii')
+                return "Unknown endian value %s" % endian_hex
         return True
 
 class RawParser(OLE2FragmentParser):

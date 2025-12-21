@@ -54,13 +54,13 @@ class metaInfoOO:
 		
 		rnd  = str(random.randrange(0, 1001, 3))
 		zip = zipfile.ZipFile(filepath, 'r')
-		open('meta'+rnd+'.xml', 'w').write(zip.read('meta.xml'))
+		open('meta'+rnd+'.xml', 'wb').write(zip.read('meta.xml'))
 		zip.close()
 
 		# done, ahora a currar con el xml
 
-		f = open ('meta'+rnd+'.xml','r')
-		meta = f.read()
+		f = open ('meta'+rnd+'.xml','rb')
+		meta = f.read().decode('utf-8', errors='replace')
 		self.carga(meta)
 		f.close()
 		os.remove('meta'+rnd+'.xml')

@@ -143,12 +143,15 @@ max-height: 300px;
             page.pre(x)
         page.body.close()
         page.html.close()
-        file = open(self.fname,'w')
+        file = open(self.fname,'w', encoding='utf-8')
         for x in page.content:
             try:
-                file.write(x)
-            except:
-                #print("Exception" +  x) # send to logs
+                if isinstance(x, bytes):
+                    file.write(x.decode('utf-8', errors='replace'))
+                else:
+                    file.write(str(x))
+            except Exception as e:
+                #print("Exception writing to file: " + str(e))
                 pass
         file.close()
         return "ok"

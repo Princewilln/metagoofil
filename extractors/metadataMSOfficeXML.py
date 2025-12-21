@@ -65,11 +65,11 @@ class metaInfoMS:
 		self.thumbnailPath =""	
 		rnd  = str(random.randrange(0, 1001, 3))
 		zip = zipfile.ZipFile(filepath, 'r')
-		open('app'+rnd+'.xml', 'w').write(zip.read('docProps/app.xml'))
-		open('core'+rnd+'.xml', 'w').write(zip.read('docProps/core.xml'))
-		open('docu'+rnd+'.xml', 'w').write(zip.read('word/document.xml'))
+		open('app'+rnd+'.xml', 'wb').write(zip.read('docProps/app.xml'))
+		open('core'+rnd+'.xml', 'wb').write(zip.read('docProps/core.xml'))
+		open('docu'+rnd+'.xml', 'wb').write(zip.read('word/document.xml'))
 		try:
-			open('comments'+rnd+'.xml', 'w').write(zip.read('word/comments.xml'))
+			open('comments'+rnd+'.xml', 'wb').write(zip.read('word/comments.xml'))
 			self.comments="ok"
 		except:
 			self.comments="error"
@@ -82,25 +82,25 @@ class metaInfoMS:
 			
 		zip.close()
 		# primero algunas estadisticas del soft usado para la edicion y del documento
-		f = open ('app'+rnd+'.xml','r')
-		app = f.read()
+		f = open ('app'+rnd+'.xml','rb')
+		app = f.read().decode('utf-8', errors='replace')
 		self.cargaApp(app)
 		f.close()
 		if self.comments=="ok":
-			f = open ('comments'+rnd+'.xml','r')
-			comm = f.read()
+			f = open ('comments'+rnd+'.xml','rb')
+			comm = f.read().decode('utf-8', errors='replace')
 			self.cargaComm(comm)
 			f.close()
 		
 		# document content
-		f = open ('docu'+rnd+'.xml','r')
-		docu = f.read()
+		f = open ('docu'+rnd+'.xml','rb')
+		docu = f.read().decode('utf-8', errors='replace')
 		self.text = docu
 		f.close()
 		# datos respecto a autor, etc
 
-		f = open ('core'+rnd+'.xml','r')
-		core = f.read()
+		f = open ('core'+rnd+'.xml','rb')
+		core = f.read().decode('utf-8', errors='replace')
 		self.cargaCore(core)
 		self.thumbnailPath = thumbnailPath
 		f.close()
