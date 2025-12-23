@@ -29,7 +29,7 @@ class OutputStream(object):
                     self._byte |= 1
                 else:
                     self._byte |= 128
-            self._output.write(chr(self._byte))
+            self._output.write(bytes([self._byte]))
             self._byte = 0
         else:
             if state:
@@ -54,7 +54,7 @@ class OutputStream(object):
                 else:
                     self._byte |= (value & ((1 << n)-1)) << self._bit_pos
                     value >>= n
-                self._output.write(chr(self._byte))
+                self._output.write(bytes([self._byte]))
                 self._bit_pos = 0
                 self._byte = 0
             else:
@@ -74,7 +74,7 @@ class OutputStream(object):
             else:
                 byte = (value & 0xFF)
                 value >>= 8
-            self._output.write(chr(byte))
+            self._output.write(bytes([byte]))
 
         # Keep last bits
         assert 0 <= count < 8

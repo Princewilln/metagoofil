@@ -580,8 +580,8 @@ class PSStackParser(PSBaseParser):
                     if STRICT: raise
             else:
                 if 2 <= self.debug:
-                    print('do_keyword: pos=%r, token=%r, stack=%r' % \)
-                          (pos, token, self.curstack)
+                    pass  #print('do_keyword: pos=%r, token=%r, stack=%r' %
+                          #(pos, token, self.curstack))
                 self.do_keyword(pos, token)
             if self.context:
                 continue

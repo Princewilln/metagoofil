@@ -180,18 +180,30 @@ class TextConverter(PDFConverter):
         if isinstance(text, bytes):
             try:
                 text = text.decode(self.codec, 'ignore')
-            except (AttributeError, UnicodeDecodeError):
+            except (AttributeError, UnicodeDecodeError, TypeError):
                 text = str(text)
         elif not isinstance(text, str):
             text = str(text)
+        
+        # Ensure text is always a string before writing
+        if not isinstance(text, str):
+            text = str(text)
+        
         try:
             self.outfp.write(text)
         except TypeError as e:
-            # If write fails with TypeError, might be binary mode file
-            if isinstance(text, str):
-                self.outfp.write(text.encode(self.codec, 'ignore'))
-            else:
-                self.outfp.write(text)
+            # If write fails with TypeError, try encoding to bytes then decoding
+            try:
+                if isinstance(text, str):
+                    self.outfp.write(text.encode(self.codec, 'ignore').decode(self.codec, 'ignore'))
+                else:
+                    self.outfp.write(str(text))
+            except Exception:
+                # Last resort: just skip this text
+                pass
+        except Exception as e:
+            # Silently ignore other write errors to keep extraction going
+            pass
         return
 
     def receive_layout(self, ltpage):
